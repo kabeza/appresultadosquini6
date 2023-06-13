@@ -1,23 +1,27 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import React from 'react';
+import {Button} from 'react-native-paper';
 
 const PantallaInicio = () => {
   return (
-    <View style={styles.contenedor}>
-      <Text style={styles.texto}>Pantalla Inicio</Text>
+    <View style={estilo.contenedor}>
+      <Button
+        mode="contained"
+        onPress={() => console.log('Pressed')}
+        icon="camera"
+        raised
+        theme={{roundness: 3}}>
+        Prueba Boton
+      </Button>
     </View>
   );
 };
 
-export default PantallaInicio;
-
-const styles = StyleSheet.create({
+const estilo = StyleSheet.create({
   contenedor: {
     flex: 1,
-    backgroundColor: '#000',
-  },
-  texto: {
-    fontSize: 20,
-    fontWeight: '400',
+    alignItems: 'center',
   },
 });
+
+export default PantallaInicio;
