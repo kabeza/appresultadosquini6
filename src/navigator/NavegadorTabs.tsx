@@ -4,8 +4,25 @@ import React from 'react';
 import PantallaInicio from './../screens/PantallaInicio';
 import PantallaSorteos from './../screens/PantallaSorteos';
 import {useTheme} from 'react-native-paper';
+import {SorteosProvider} from '../context/ContextoSorteos';
 
 const Tab = createBottomTabNavigator();
+
+const ComponenteProveedorSorteos = ({
+  children,
+}: {
+  children: JSX.Element | JSX.Element[];
+}) => {
+  return <SorteosProvider>{children}</SorteosProvider>;
+};
+
+const ComPantallaSorteosProvider = () => {
+  return (
+    <ComponenteProveedorSorteos>
+      <PantallaInicio />
+    </ComponenteProveedorSorteos>
+  );
+};
 
 const NavegadorTabs = () => {
   const theme = useTheme();
@@ -36,7 +53,7 @@ const NavegadorTabs = () => {
           ),
         }}
         name="PantallaInicio"
-        component={PantallaInicio}
+        component={ComPantallaSorteosProvider}
       />
       <Tab.Screen
         options={{

@@ -1,14 +1,29 @@
-import {View, StyleSheet, ActivityIndicator} from 'react-native';
-import React, {useContext, useEffect} from 'react';
-import {Button, Card, MD3Colors, Text} from 'react-native-paper';
-import {SorteosContext} from '../context/SorteosContext';
+import * as React from 'react';
+import {useContext, useEffect} from 'react';
+import {View, StyleSheet, FlatList, Keyboard} from 'react-native';
+import {ActivityIndicator, Button, Card, MD3Colors, Text} from 'react-native-paper';
+import {ContextoSorteos} from '../context/ContextoSorteos';
+import {Sorteo} from '../interfaces/RespuestaSorteos';
+
+interface Props {
+  sorteo: Sorteo;
+}
+
+export const Sorteo = ({sorteo}: Props) => {
+  return (
+    <>
+      <Text>Hola desde {sorteo.numero}</Text>
+    </>
+  );
+};
 
 const PantallaInicio = () => {
-  const {cantidad, getSorteos, isLoading, sorteos} = useContext(SorteosContext);
+  const {sorteos, isLoading, obtenerSorteos} = useContext(ContextoSorteos);
 
   useEffect(() => {
-    console.log('Aca llama');
-    getSorteos();
+    obtenerSorteos();
+    console.log('Datos desde Pantalla Inicio');
+    console.log(sorteos);
   }, []);
 
   return (
@@ -22,16 +37,14 @@ const PantallaInicio = () => {
         </Card.Content>
       </Card>
       {isLoading ? (
-        <ActivityIndicator
-          animating={true}
-          color={MD3Colors.primary50}
-          size={20}
-        />
+        <ActivityIndicator size={60} />
       ) : (
-        <>
-          <Text>Ya cargaron los resultados</Text>
-          <Text>Cantidad: {cantidad}</Text>
-        </>
+        <FlatList
+          onScrollBeginDrag={() => Keyboard.dismiss()}
+          data={sorteos}
+          keyExtractor={item => item.numero}
+          renderItem={({item}) => <Sorteo key={item.numero} sorteo={item} />}
+        />
       )}
       <Button
         mode="contained"
