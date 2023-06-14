@@ -1,10 +1,10 @@
 import * as React from 'react';
-import {createContext, useEffect, useState} from 'react';
-import {Sorteo, RespuestaSorteos} from '../interfaces/RespuestaSorteos';
+import {createContext, useState} from 'react';
+import {RespuestaSorteos, TipoSorteo} from '../interfaces/RespuestaSorteos';
 import APISorteos from '../api/SorteosApi';
 
 type ContextoSorteosProps = {
-  sorteos: Sorteo[];
+  sorteos: TipoSorteo[];
   isLoading: boolean;
   obtenerSorteos: () => Promise<void>;
 };
@@ -12,13 +12,12 @@ type ContextoSorteosProps = {
 export const ContextoSorteos = createContext({} as ContextoSorteosProps);
 
 export const SorteosProvider = ({children}: any) => {
-  const [sorteos, setSorteos] = useState<Sorteo[]>([]);
+  const [sorteos, setSorteos] = useState<TipoSorteo[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const obtenerSorteos = async () => {
     console.log('Se llama a obtenerSorteos en el Contexto');
     setIsLoading(true);
-    console.log(APISorteos);
     await APISorteos.get<RespuestaSorteos>('q6r/sorteos')
       .then(function (response) {
         console.log('Llamado a la API');
@@ -33,11 +32,6 @@ export const SorteosProvider = ({children}: any) => {
       });
     setIsLoading(false);
   };
-
-  /*
-  useEffect(() => {
-  }, []);
-  */
 
   return (
     <ContextoSorteos.Provider

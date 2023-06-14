@@ -38,6 +38,7 @@ const NavegadorTabs = () => {
           position: 'absolute',
         },
         tabBarLabelStyle: {
+          fontFamily: 'RobotoCondensed-Bold',
           fontSize: 16,
           marginBottom: 10,
         },

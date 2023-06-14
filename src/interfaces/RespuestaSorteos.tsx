@@ -1,10 +1,10 @@
 export interface RespuestaSorteos {
   message: string;
   cantidad: number;
-  data: Sorteo[];
+  data: TipoSorteo[];
 }
 
-export interface Sorteo {
+export interface TipoSorteo {
   numero: string;
   titulo: string;
   fecha: string;

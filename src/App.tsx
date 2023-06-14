@@ -6,6 +6,7 @@ import {
 } from '@react-navigation/native';
 import {
   adaptNavigationTheme,
+  configureFonts,
   MD3DarkTheme,
   MD3LightTheme,
   PaperProvider,
@@ -18,22 +19,32 @@ const {LightTheme, DarkTheme} = adaptNavigationTheme({
   reactNavigationLight: NavigationDefaultTheme,
   reactNavigationDark: NavigationDarkTheme,
 });
-
 const CombinedDefaultTheme = merge(MD3LightTheme, LightTheme);
 const CombinedDarkTheme = merge(MD3DarkTheme, DarkTheme);
+
+const fontConfig = {
+  fontFamily: 'RobotoCondensed-Regular',
+};
+const themeLightFinal = {
+  ...CombinedDefaultTheme,
+  fonts: configureFonts({config: fontConfig}),
+};
+const themeDarkFinal = {
+  ...CombinedDarkTheme,
+  fonts: configureFonts({config: fontConfig}),
+};
 
 const App = () => {
   const colorScheme = useColorScheme();
   return (
-    <PaperProvider theme={CombinedDarkTheme}>
+    <PaperProvider
+      theme={colorScheme === 'light' ? themeLightFinal : themeDarkFinal}>
       {/*
         Está la opción de usar el Navegador Drawer
         Pero por ahora arranco solo con el Bottom Tabs Navigator
       */}
       <NavigationContainer
-        theme={
-          colorScheme === 'light' ? CombinedDefaultTheme : CombinedDarkTheme
-        }>
+        theme={colorScheme === 'light' ? themeLightFinal : themeDarkFinal}>
         <NavegadorTabs />
       </NavigationContainer>
     </PaperProvider>
