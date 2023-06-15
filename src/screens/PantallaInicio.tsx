@@ -14,7 +14,7 @@ import Sorteo from '../components/Sorteo';
 import {ContextoSorteos} from '../context/ContextoSorteos';
 import {estiloGlobal} from '../styles/EstiloGlobal';
 
-const PantallaInicio = ({navigation}) => {
+const PantallaInicio = ({navigation}: {navigation: any}) => {
   const {sorteos, isLoading, obtenerSorteos} = useContext(ContextoSorteos);
   const estaCargando = true;
 
@@ -42,11 +42,8 @@ const PantallaInicio = ({navigation}) => {
             </View>
             <View>
               <Text>
-                Enim consectetur officia excepteur ipsum voluptate nulla
-                mollit ipsum ad qui. Excepteur deserunt nisi ex ea
-                exercitation exercitation exercitation reprehenderit nisi
-                magna in dolor voluptate. Exercitation cupidatat eu labore
-                aliqua aute magna sunt cillum voluptate tempor.
+                Enim consectetur officia excepteur ipsum voluptate nulla mollit
+                mollit ipsum ad qui. Excepteur deserunt nisi ex ea.
               </Text>
             </View>
           </Card.Content>

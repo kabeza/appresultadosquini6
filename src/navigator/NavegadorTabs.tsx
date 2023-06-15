@@ -1,10 +1,10 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import React from 'react';
-import PantallaInicio from './../screens/PantallaInicio';
 import PantallaSorteos from './../screens/PantallaSorteos';
 import {useTheme} from 'react-native-paper';
 import {SorteosProvider} from '../context/ContextoSorteos';
+import NavegadorStack from './NavegadorStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,7 +19,8 @@ const ComponenteProveedorSorteos = ({
 const ComPantallaSorteosProvider = () => {
   return (
     <ComponenteProveedorSorteos>
-      <PantallaInicio />
+      {/* <PantallaInicio /> */}
+      <NavegadorStack />
     </ComponenteProveedorSorteos>
   );
 };

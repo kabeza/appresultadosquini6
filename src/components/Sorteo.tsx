@@ -11,37 +11,36 @@ interface Props {
 
 const Sorteo = ({sorteo}: Props) => {
   const navigation = useNavigation();
-  
-  const verDetalleSorteo = (sorteoNumero: string) => {
-    console.log(`Sorteo ## ${sorteoNumero}`);
-    navigation.navigate('PantallaSorteos');
+
+  const verDetalleSorteo = (paramSorteo: TipoSorteo) => {
+    console.log(navigation);
+    console.log(`Sorteo ## ${paramSorteo}`);
+    navigation.navigate('DetalleSorteo', {paramSorteo});
   };
 
   return (
     <>
-      <TouchableOpacity
-        onPress={() => verDetalleSorteo(sorteo.numero)}
-      >
-      <Card mode="outlined" theme={{roundness: 4}} style={estiloGlobal.mb10}>
-        <Card.Content>
-          <View style={estilo.itemSorteo}>
-            <View style={estilo.isL}>
-              <Text variant="titleLarge">Sorteo {sorteo.numero}</Text>
-              <Text variant="titleMedium">Fecha {sorteo.fecha}</Text>
+      <TouchableOpacity onPress={() => verDetalleSorteo(sorteo)}>
+        <Card mode="outlined" theme={{roundness: 4}} style={estiloGlobal.mb10}>
+          <Card.Content>
+            <View style={estilo.itemSorteo}>
+              <View style={estilo.isL}>
+                <Text variant="titleLarge">Sorteo {sorteo.numero}</Text>
+                <Text variant="titleMedium">Fecha {sorteo.fecha}</Text>
+              </View>
+              <View style={estilo.isR}>
+                <Button
+                  compact={true}
+                  onPress={() => verDetalleSorteo(sorteo)}
+                  icon="eye-arrow-right"
+                  mode="contained"
+                  theme={{roundness: 2}}>
+                  Ver
+                </Button>
+              </View>
             </View>
-            <View style={estilo.isR}>
-              {/* <Button
-                compact={true}
-                // onPress={() => console.log(`Sorteo ${sorteo.numero}`)}
-                onPress={() => verDetalleSorteo(sorteo.numero)}
-                icon="eye-arrow-right"
-                mode="contained"
-                theme={{roundness: 2}}>
-              </Button> */}
-            </View>
-          </View>
-        </Card.Content>
-      </Card>
+          </Card.Content>
+        </Card>
       </TouchableOpacity>
     </>
   );
