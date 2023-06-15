@@ -8,12 +8,13 @@ import {
   MD3Colors,
   Text,
 } from 'react-native-paper';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import Cargando from '../components/Cargando';
 import Sorteo from '../components/Sorteo';
 import {ContextoSorteos} from '../context/ContextoSorteos';
-import { estiloGlobal } from '../styles/EstiloGlobal';
+import {estiloGlobal} from '../styles/EstiloGlobal';
 
-const PantallaInicio = () => {
+const PantallaInicio = ({navigation}) => {
   const {sorteos, isLoading, obtenerSorteos} = useContext(ContextoSorteos);
   const estaCargando = true;
 
@@ -41,11 +42,11 @@ const PantallaInicio = () => {
             </View>
             <View>
               <Text>
-                Enim consectetur officia excepteur ipsum voluptate nulla mollit
-                ipsum ad qui. Excepteur deserunt nisi ex ea exercitation
-                reprehenderit nisi magna in dolor officia eiusmod reprehenderit
-                voluptate. Exercitation cupidatat eu labore aliqua aute magna
-                sunt cillum voluptate tempor.
+                Enim consectetur officia excepteur ipsum voluptate nulla
+                mollit ipsum ad qui. Excepteur deserunt nisi ex ea
+                exercitation exercitation exercitation reprehenderit nisi
+                magna in dolor voluptate. Exercitation cupidatat eu labore
+                aliqua aute magna sunt cillum voluptate tempor.
               </Text>
             </View>
           </Card.Content>
@@ -70,7 +71,9 @@ const PantallaInicio = () => {
             onScrollBeginDrag={() => Keyboard.dismiss()}
             data={sorteos}
             keyExtractor={item => item.numero}
-            renderItem={({item}) => <Sorteo key={item.numero} sorteo={item} />}
+            renderItem={({item}) => (
+              <Sorteo key={item.numero} sorteo={item} navigation={navigation} />
+            )}
           />
         )}
       </View>
