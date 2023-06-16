@@ -6,15 +6,13 @@ import {ContextoSorteos} from '../context/ContextoSorteos';
 // import {SafeAreaView} from 'react-native-safe-area-context';
 import {estiloGlobal} from '../styles/EstiloGlobal';
 import Cargando from '../components/Cargando';
-import Sorteo from '../components/Sorteo';
+import SorteoItemListado from '../components/SorteoItemListado';
 
 const PantallaInicio = ({navigation}: {navigation: any}) => {
   const {sorteos, isLoading, obtenerSorteos} = useContext(ContextoSorteos);
 
   useEffect(() => {
     obtenerSorteos();
-    console.log('Datos desde Pantalla Inicio');
-    console.log(sorteos);
   }, []);
 
   // const arre1 = [1,2,3,4,5,6,7,8];
@@ -61,10 +59,11 @@ const PantallaInicio = ({navigation}: {navigation: any}) => {
               onScrollBeginDrag={() => Keyboard.dismiss()}
               data={sorteos}
               keyExtractor={item => item.numero}
-              renderItem={({item}) => (
-                <Sorteo
+              renderItem={({item, index}) => (
+                <SorteoItemListado
                   key={item.numero}
                   sorteo={item}
+                  indice={index}
                   navigation={navigation}
                 />
               )}

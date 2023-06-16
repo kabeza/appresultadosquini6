@@ -127,12 +127,6 @@ const DetalleSorteo = ({sorteo}: Props) => {
           </View>
         </Card.Content>
       </Card>
-      {/*
-      <Card mode="elevated" theme={{roundness: 4}} style={estiloGlobal.mb10}>
-        <Card.Content>
-        </Card.Content>
-      </Card>
-      */}
     </>
   );
 };

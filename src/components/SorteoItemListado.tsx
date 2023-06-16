@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Button, Card, Text} from 'react-native-paper';
+import { Button, Card, Text, MD3Colors } from 'react-native-paper';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {TipoSorteo} from '../interfaces/RespuestaSorteos';
 import {estiloGlobal} from '../styles/EstiloGlobal';
@@ -7,21 +7,20 @@ import {useNavigation} from '@react-navigation/native';
 
 interface Props {
   sorteo: TipoSorteo;
+  indice: number;
 }
 
-const Sorteo = ({sorteo}: Props) => {
+const SorteoItemListado = ({sorteo, indice}: Props) => {
   const navigation = useNavigation();
 
   const verDetalleSorteo = (paramSorteo: TipoSorteo) => {
-    console.log(navigation);
-    console.log(`Sorteo ## ${paramSorteo}`);
     navigation.navigate('DetalleSorteo', {paramSorteo});
   };
 
   return (
     <>
       <TouchableOpacity onPress={() => verDetalleSorteo(sorteo)}>
-        <Card mode="outlined" theme={{roundness: 4}} style={estiloGlobal.mb10}>
+        <Card mode={indice === 0 ? "outlined" : "elevated" } theme={{roundness: 4}} style={{borderColor: indice === 0 ? MD3Colors.tertiary60 : MD3Colors.primary40,...estiloGlobal.mb10}}>
           <Card.Content>
             <View style={estilo.itemSorteo}>
               <View style={estilo.isL}>
@@ -46,7 +45,7 @@ const Sorteo = ({sorteo}: Props) => {
   );
 };
 
-export default Sorteo;
+export default SorteoItemListado;
 
 const estilo = StyleSheet.create({
   itemSorteo: {flex: 1, flexDirection: 'row'},

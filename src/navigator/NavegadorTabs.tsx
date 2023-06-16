@@ -61,7 +61,7 @@ const NavegadorTabs = () => {
       />
       <Tab.Screen
         options={{
-          tabBarLabel: 'Sorteos',
+          tabBarLabel: 'Generar Boletas',
           // eslint-disable-next-line react/no-unstable-nested-components
           tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcons
