@@ -29,14 +29,16 @@ const NavegadorTabs = () => {
   const theme = useTheme();
   return (
     <Tab.Navigator
+      detachInactiveScreens={false}
       screenOptions={{
         headerShown: false,
         tabBarHideOnKeyboard: true,
         tabBarStyle: {
-          height: 80,
-          backgroundColor: theme.colors.secondaryContainer,
-          elevation: 0,
+          height: 90,
           position: 'absolute',
+          elevation: 0,
+          backgroundColor: theme.colors.secondaryContainer,
+          overflow: 'visible',
         },
         tabBarLabelStyle: {
           fontFamily: 'RobotoCondensed-Bold',

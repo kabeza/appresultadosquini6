@@ -14,6 +14,7 @@ import {
 import NavegadorTabs from './navigator/NavegadorTabs';
 import merge from 'deepmerge';
 import {useColorScheme} from 'react-native';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 const {LightTheme, DarkTheme} = adaptNavigationTheme({
   reactNavigationLight: NavigationDefaultTheme,
@@ -43,10 +44,12 @@ const App = () => {
         Está la opción de usar el Navegador Drawer
         Pero por ahora arranco solo con el Bottom Tabs Navigator
       */}
-      <NavigationContainer
-        theme={colorScheme === 'light' ? themeLightFinal : themeDarkFinal}>
-        <NavegadorTabs />
-      </NavigationContainer>
+      <SafeAreaProvider>
+        <NavigationContainer
+          theme={colorScheme === 'light' ? themeLightFinal : themeDarkFinal}>
+          <NavegadorTabs />
+        </NavigationContainer>
+      </SafeAreaProvider>
     </PaperProvider>
   );
 };

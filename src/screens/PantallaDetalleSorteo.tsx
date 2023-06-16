@@ -12,7 +12,6 @@ import DetalleSorteo from '../components/DetalleSorteo';
 const PantallaDetalleSorteo = ({route}: {route: any}) => {
   const {isLoading, detalleSorteo, obtenerDetalleSorteo} = useContext(ContextoSorteos);
   const {paramSorteo} = route.params;
-  const estaCargando = true;
 
   useEffect(() => {
     obtenerDetalleSorteo(paramSorteo.numero);
@@ -47,88 +46,15 @@ const PantallaDetalleSorteo = ({route}: {route: any}) => {
             detalleSorteo.resultados.length > 0 &&
             !isLoading ? (
               <>
-                {detalleSorteo.resultados.map((item) => {
-                  console.log(uuid.v4());
-                  console.log(`Item ==> ${JSON.stringify(item)}`);
-                  return <DetalleSorteo key={uuid.v4()} sorteo={item} />;
+                {detalleSorteo.resultados.map((object, i) => {
+                  return <DetalleSorteo key={i} sorteo={object} />;
                 })}
-                {/*
-                {detalleSorteo.resultados.map(item => (
-                  <View key={uuid.v4()}>
-                    {Object.entries(item).map(([key, val]) => {
-                      return (
-                        <>
-                          <Text>
-                            KEY {key.toString()} = {JSON.stringify(val)}
-                          </Text>
-                          <Text>--------</Text>
-                        </>
-                      );
-                    })}
-                  </View>
-                ))}
-                */}
-                {/*
-                {detalleSorteo.resultados.map(({titulo, numeros, premios}) => {
-                  console.log(titulo);
-                  console.log(numeros);
-                  return (
-                    <>
-                      <Card
-                        mode="outlined"
-                        theme={{roundness: 4}}
-                        style={estiloGlobal.mb10}>
-                        <Card.Content>
-                          <Text variant="titleMedium">{titulo}</Text>
-                          <Text variant="titleSmall">{numeros}</Text>
-                        </Card.Content>
-                      </Card>
-                    </>
-                  );
-                })}
-                */}
               </>
             ) : null}
-            <View style={{minHeight:150}}></View>
+            <View style={{minHeight:150}} />
           </>
         )}
       </ScrollView>
-      {/*
-      <Card mode="outlined" theme={{roundness: 4}} style={estiloGlobal.mb10}>
-        <Card.Content>
-          {isLoading ? (
-            <>
-              <View style={{minHeight:150}}>
-                <Cargando />
-              </View>
-            </>
-          ) : (
-            <>
-              <View>
-                {detalleSorteo !== null &&
-                detalleSorteo.resultados.length > 0 &&
-                !isLoading ? (
-                  <>
-                    {detalleSorteo.resultados.map(
-                      ({titulo, numeros, premios}) => {
-                        console.log(titulo);
-                        console.log(numeros);
-                        return (
-                          <>
-                            <Text>Titulo {titulo}</Text>
-                          </>
-                        );
-                      },
-                    )}
-                  </>
-                ) : null}
-              </View>
-              {// <Text>Hola {JSON.stringify(detalleSorteo)}</Text> }
-            </>
-          )}
-        </Card.Content>
-      </Card>
-      */}
     </SafeAreaView>
   );
 };

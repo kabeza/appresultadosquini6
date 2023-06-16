@@ -9,7 +9,13 @@ const Stack = createNativeStackNavigator();
 const NavegadorStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Inicio" component={PantallaInicio} />
+      <Stack.Screen
+        name="Inicio"
+        component={PantallaInicio}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen
         name="DetalleSorteo"
         component={PantallaDetalleSorteo}
