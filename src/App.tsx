@@ -15,6 +15,7 @@ import NavegadorTabs from './navigator/NavegadorTabs';
 import merge from 'deepmerge';
 import {useColorScheme} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const {LightTheme, DarkTheme} = adaptNavigationTheme({
   reactNavigationLight: NavigationDefaultTheme,
@@ -44,12 +45,14 @@ const App = () => {
         Está la opción de usar el Navegador Drawer
         Pero por ahora arranco solo con el Bottom Tabs Navigator
       */}
-      <SafeAreaProvider>
-        <NavigationContainer
-          theme={colorScheme === 'light' ? themeLightFinal : themeDarkFinal}>
-          <NavegadorTabs />
-        </NavigationContainer>
-      </SafeAreaProvider>
+      <GestureHandlerRootView style={{flex: 1}}>
+        <SafeAreaProvider>
+          <NavigationContainer
+            theme={colorScheme === 'light' ? themeLightFinal : themeDarkFinal}>
+            <NavegadorTabs />
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </GestureHandlerRootView>
     </PaperProvider>
   );
 };
