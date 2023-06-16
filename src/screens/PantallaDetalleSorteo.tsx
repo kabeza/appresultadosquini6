@@ -89,6 +89,7 @@ const PantallaDetalleSorteo = ({route}: {route: any}) => {
                 */}
               </>
             ) : null}
+            <View style={{minHeight:150}}></View>
           </>
         )}
       </ScrollView>
