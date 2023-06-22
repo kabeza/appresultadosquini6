@@ -3,7 +3,6 @@ import {useContext, useEffect} from 'react';
 import {View, StyleSheet, FlatList, Keyboard} from 'react-native';
 import {Card, Text} from 'react-native-paper';
 import {ContextoSorteos} from '../context/ContextoSorteos';
-// import {SafeAreaView} from 'react-native-safe-area-context';
 import {estiloGlobal} from '../styles/EstiloGlobal';
 import Cargando from '../components/Cargando';
 import SorteoItemListado from '../components/SorteoItemListado';
@@ -15,28 +14,8 @@ const PantallaInicio = ({navigation}: {navigation: any}) => {
     obtenerSorteos();
   }, []);
 
-  // const arre1 = [1,2,3,4,5,6,7,8];
-
   return (
     <>
-      {/*
-      <SafeAreaView
-        style={{
-          flex: 1,
-          backgroundColor: 'green',
-          padding: 5,
-        }}>
-        <ScrollView style={{flex:1}}>
-          {arre1.map((object, i) => {
-            return (
-              <View key={i} style={{backgroundColor:'red', marginBottom:10, minHeight:100}}>
-                <Text>{object}</Text>
-              </View>
-            );
-          })}
-        </ScrollView>
-      </SafeAreaView>
-      */}
       <View style={estilo.contenedor}>
         <View>
           <Card

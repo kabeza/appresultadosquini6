@@ -15,7 +15,7 @@ import NavegadorTabs from './navigator/NavegadorTabs';
 import merge from 'deepmerge';
 import {useColorScheme} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 const {LightTheme, DarkTheme} = adaptNavigationTheme({
   reactNavigationLight: NavigationDefaultTheme,

@@ -3,6 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import {Avatar, Button, Card, Text} from 'react-native-paper';
 
 const LeftContent = props => <Avatar.Icon {...props} icon="slot-machine" />;
+
 const MiTarjeta = () => (
   <Card mode="contained" theme={{roundness: 4}}>
     <Card.Title title="Sorteo Número" subtitle="Fecha:" left={LeftContent} />
@@ -16,7 +17,7 @@ const MiTarjeta = () => (
   </Card>
 );
 
-const PantallaSorteos = () => {
+const PantallaGenerarBoletas = () => {
   return (
     <View style={estilo.contenedor}>
       <MiTarjeta />
@@ -31,4 +32,4 @@ const estilo = StyleSheet.create({
   },
 });
 
-export default PantallaSorteos;
+export default PantallaGenerarBoletas;
