@@ -7,6 +7,7 @@ import {useContext, useEffect, useState} from 'react';
 import {ContextoSorteos} from '../context/ContextoSorteos';
 import Cargando from '../components/Cargando';
 import DetalleSorteo from '../components/DetalleSorteo';
+import ControlarBoleta from '../components/ControlarBoleta';
 
 const PantallaDetalleSorteo = ({route}: {route: any}) => {
   const {isLoading, detalleSorteo, obtenerDetalleSorteo} = useContext(ContextoSorteos);
@@ -41,11 +42,11 @@ const PantallaDetalleSorteo = ({route}: {route: any}) => {
           onDismiss={hideModal}
           style={{margin:10}}
           theme={{roundness: 10}}
-          contentContainerStyle={{backgroundColor: MD3Colors.tertiary20, padding: 20}}>
+          contentContainerStyle={{backgroundColor: MD3Colors.tertiary20, padding: 20, borderColor:MD3Colors.error80, borderWidth:1}}>
           <View style={{padding:5}}>
-            <Text>Example Modal. Click outside this area to dismiss.</Text>
+            <ControlarBoleta sorteo={detalleSorteo} />
           </View>
-          <View>
+          <View style={{alignContent:'center', padding:6}}>
             <Button
               disabled={isLoading}
               onPress={() => hideModal()}
@@ -112,8 +113,6 @@ const PantallaDetalleSorteo = ({route}: {route: any}) => {
                 })}
               </>
             ) : null}
-            {/* Ugly Fix porque el bottom tabs está por sobre el contenido del View */}
-            <View style={{minHeight:90}} />
           </>
         </ScrollView>
       )}

@@ -35,7 +35,7 @@ const NavegadorTabs = () => {
         tabBarHideOnKeyboard: true,
         tabBarStyle: {
           height: 90,
-          position: 'absolute',
+          position: 'relative',
           elevation: 0,
           backgroundColor: theme.colors.secondaryContainer,
           overflow: 'visible',
