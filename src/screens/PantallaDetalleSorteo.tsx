@@ -126,5 +126,6 @@ const estilo = StyleSheet.create({
   contenedor: {
     flex: 1,
     padding: 10,
+    marginBottom: 50,
   },
 });

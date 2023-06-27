@@ -9,11 +9,9 @@ import NavegadorStack from './NavegadorStack';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useTheme} from 'react-native-paper';
 import {SorteosProvider} from '../context/ContextoSorteos';
-import PantallaSorteos from './../screens/PantallaSorteos';
-import PantallaInfo from '../screens/PantallaInfo';
-import PantallaHome from '../screens/PantallaHome';
 import PantallaGenerarBoletas from '../screens/PantallaGenerarBoletas';
 import NavegadorStackPrueba from './NavegadorStackPrueba';
+import PantallaInfo from '../screens/PantallaInfo';
 
 const Tab = createBottomTabNavigator();
 
@@ -48,7 +46,7 @@ const NavegadorTabs = () => {
       justifyContent: 'center',
       alignItems: 'center',
       alignSelf: 'center',
-      bottom: 15,
+      bottom: 30,
       left: posicionTabBar,
       elevation: 0,
       width: anchoTabBar,
@@ -112,10 +110,6 @@ const NavegadorTabs = () => {
         </View>
       )}
       screenOptions={estiloTabBarFijo}
-      sceneContainerStyle={{
-        backgroundColor: 'transparent',
-        paddingBottom: 70,
-      }}
       initialRouteName="PantallaInicio"
       detachInactiveScreens={false}>
       <Tab.Screen
@@ -160,7 +154,7 @@ const NavegadorTabs = () => {
           ),
         }}
         name="PantallaInfo"
-        component={NavegadorStackPrueba}
+        component={PantallaInfo}
       />
     </Tab.Navigator>
   );

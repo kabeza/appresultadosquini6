@@ -58,6 +58,7 @@ const estilo = StyleSheet.create({
   contenedor: {
     flex: 1,
     padding: 10,
+    marginBottom: 50,
   },
   listaSorteos: {
     // backgroundColor:MD3Colors.neutral40,
