@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Button, Text, TextInput, MD3Colors} from 'react-native-paper';
 import {DatosSorteo} from '../interfaces/RespuestaDetalleSorteo';
@@ -28,15 +28,22 @@ const ControlarBoleta = ({sorteo}: Props) => {
     n5: '',
     n6: '',
   });
+  // Inputs Refs
+  const ref_input1 = useRef();
+  const ref_input2 = useRef();
+  const ref_input3 = useRef();
+  const ref_input4 = useRef();
+  const ref_input5 = useRef();
+  const ref_input6 = useRef();
 
   const numerosValidos = (): Boolean => {
     if (
-      numeros.n1 !== '' && numeros.n1 >= 0 && numeros.n1 <= 45 &&
-      numeros.n2 !== '' && numeros.n2 >= 0 && numeros.n2 <= 45 &&
-      numeros.n3 !== '' && numeros.n3 >= 0 && numeros.n3 <= 45 &&
-      numeros.n4 !== '' && numeros.n4 >= 0 && numeros.n4 <= 45 &&
-      numeros.n5 !== '' && numeros.n5 >= 0 && numeros.n5 <= 45 &&
-      numeros.n6 !== '' && numeros.n6 >= 0 && numeros.n6 <= 45
+      (numeros.n1 !== '') && (parseInt(numeros.n1) >= 0) && (parseInt(numeros.n1) <= 45) &&
+      (numeros.n2 !== '') && (parseInt(numeros.n2) >= 0) && (parseInt(numeros.n2) <= 45) &&
+      (numeros.n3 !== '') && (parseInt(numeros.n3) >= 0) && (parseInt(numeros.n3) <= 45) &&
+      (numeros.n4 !== '') && (parseInt(numeros.n4) >= 0) && (parseInt(numeros.n4) <= 45) &&
+      (numeros.n5 !== '') && (parseInt(numeros.n5) >= 0) && (parseInt(numeros.n5) <= 45) &&
+      (numeros.n6 !== '') && (parseInt(numeros.n6) >= 0) && (parseInt(numeros.n6) <= 45)
     ) {
       return true;
     } else {
@@ -131,22 +138,88 @@ const ControlarBoleta = ({sorteo}: Props) => {
       </View>
       <View style={{flexDirection:'row', marginBottom:15, justifyContent:'space-between'}}>
         <View>
-          <TextInput autoComplete='off' autoCorrect={false} maxLength={2} keyboardType='number-pad' mode="outlined" label="" value={numeros.n1.toString()} onChangeText={(text) => handleChangeText(1, text)} />
+          <TextInput
+            autoFocus={true}
+            autoComplete="off"
+            autoCorrect={false}
+            maxLength={2}
+            keyboardType="number-pad"
+            mode="outlined"
+            label=""
+            returnKeyType="next"
+            value={numeros.n1.toString()}
+            onSubmitEditing={() => ref_input2.current.focus()}
+            onChangeText={text => handleChangeText(1, text)}
+          />
         </View>
         <View>
-          <TextInput autoComplete='off' autoCorrect={false} maxLength={2} keyboardType='number-pad' mode="outlined" label="" value={numeros.n2.toString()} onChangeText={(text) => handleChangeText(2, text)} />
+          <TextInput
+            ref={ref_input2}
+            autoComplete="off"
+            autoCorrect={false}
+            maxLength={2}
+            keyboardType="number-pad"
+            mode="outlined"
+            label=""
+            value={numeros.n2.toString()}
+            onSubmitEditing={() => ref_input3.current.focus()}
+            onChangeText={text => handleChangeText(2, text)}
+          />
         </View>
         <View>
-          <TextInput autoComplete='off' autoCorrect={false} maxLength={2} keyboardType='number-pad' mode="outlined" label="" value={numeros.n3.toString()} onChangeText={(text) => handleChangeText(3, text)} />
+          <TextInput
+            ref={ref_input3}
+            autoComplete="off"
+            autoCorrect={false}
+            maxLength={2}
+            keyboardType="number-pad"
+            mode="outlined"
+            label=""
+            value={numeros.n3.toString()}
+            onSubmitEditing={() => ref_input4.current.focus()}
+            onChangeText={text => handleChangeText(3, text)}
+          />
         </View>
         <View>
-          <TextInput autoComplete='off' autoCorrect={false} maxLength={2} keyboardType='number-pad' mode="outlined" label="" value={numeros.n4.toString()} onChangeText={(text) => handleChangeText(4, text)} />
+          <TextInput
+            ref={ref_input4}
+            autoComplete="off"
+            autoCorrect={false}
+            maxLength={2}
+            keyboardType="number-pad"
+            mode="outlined"
+            label=""
+            value={numeros.n4.toString()}
+            onSubmitEditing={() => ref_input5.current.focus()}
+            onChangeText={text => handleChangeText(4, text)}
+          />
         </View>
         <View>
-          <TextInput autoComplete='off' autoCorrect={false} maxLength={2} keyboardType='number-pad' mode="outlined" label="" value={numeros.n5.toString()} onChangeText={(text) => handleChangeText(5, text)} />
+          <TextInput
+            ref={ref_input5}
+            autoComplete="off"
+            autoCorrect={false}
+            maxLength={2}
+            keyboardType="number-pad"
+            mode="outlined"
+            label=""
+            value={numeros.n5.toString()}
+            onSubmitEditing={() => ref_input6.current.focus()}
+            onChangeText={text => handleChangeText(5, text)}
+          />
         </View>
         <View>
-          <TextInput autoComplete='off' autoCorrect={false} maxLength={2} keyboardType='number-pad' mode="outlined" label="" value={numeros.n6.toString()} onChangeText={(text) => handleChangeText(6, text)} />
+          <TextInput
+            ref={ref_input6}
+            autoComplete="off"
+            autoCorrect={false}
+            maxLength={2}
+            keyboardType="number-pad"
+            mode="outlined"
+            label=""
+            value={numeros.n6.toString()}
+            onChangeText={text => handleChangeText(6, text)}
+          />
         </View>
       </View>
       {hayError ? (
