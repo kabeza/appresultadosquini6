@@ -28,3 +28,20 @@ export interface Premio {
   ganadores: string;
   premio: string;
 }
+
+export interface TipoAciertos {
+  res1: number; // tradicional
+  res2: number; // la segunda
+  res3: number; // revancha
+  res4: number; // siempre sale
+  res5: number; // pozo extra
+}
+
+export interface numerosIngresados {
+  n1: number | string;
+  n2: number | string;
+  n3: number | string;
+  n4: number | string;
+  n5: number | string;
+  n6: number | string;
+}

@@ -1,28 +1,16 @@
 import * as React from 'react';
 import {useEffect, useRef, useState} from 'react';
-import {Keyboard, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {Button, Text, TextInput, MD3Colors, Card} from 'react-native-paper';
-import {DatosSorteo} from '../interfaces/RespuestaDetalleSorteo';
+import {
+  DatosSorteo,
+  TipoAciertos,
+  numerosIngresados,
+} from '../interfaces/RespuestaDetalleSorteo';
+import Ganaste from './Ganaste';
 
 interface Props {
   sorteo: DatosSorteo;
-}
-
-interface TipoAciertos {
-  res0: number; // tradicional
-  res1: number; // la segunda
-  res2: number; // revancha
-  res3: number; // siempre sale
-  res4: number; // pozo extra
-}
-
-interface numerosIngresados {
-  n1: number | string;
-  n2: number | string;
-  n3: number | string;
-  n4: number | string;
-  n5: number | string;
-  n6: number | string;
 }
 
 const ControlarBoleta = ({sorteo}: Props) => {
@@ -37,11 +25,11 @@ const ControlarBoleta = ({sorteo}: Props) => {
     n6: '',
   });
   const [aciertos, setAciertos] = useState<TipoAciertos>({
-    res0: 0,
     res1: 0,
     res2: 0,
     res3: 0,
     res4: 0,
+    res5: 0,
   });
 
   useEffect(() => {
@@ -100,7 +88,11 @@ const ControlarBoleta = ({sorteo}: Props) => {
       }
       toMap[temp[i]] = true;
     }
-    if (resultado) { console.log('Si hay duplicados'); } else { console.log('No hay dupes'); }
+    if (resultado) {
+      console.log('Si hay duplicados');
+    } else {
+      console.log('No hay dupes');
+    }
     return resultado;
   };
 
@@ -209,7 +201,7 @@ const ControlarBoleta = ({sorteo}: Props) => {
     setAciertos(prevState => {
       return {
         ...prevState,
-        res0: s1.length,
+        res1: s1.length,
       };
     });
 
@@ -220,7 +212,7 @@ const ControlarBoleta = ({sorteo}: Props) => {
     setAciertos(prevState => {
       return {
         ...prevState,
-        res1: s2.length,
+        res2: s2.length,
       };
     });
 
@@ -231,7 +223,7 @@ const ControlarBoleta = ({sorteo}: Props) => {
     setAciertos(prevState => {
       return {
         ...prevState,
-        res2: s3.length,
+        res3: s3.length,
       };
     });
 
@@ -242,7 +234,7 @@ const ControlarBoleta = ({sorteo}: Props) => {
     setAciertos(prevState => {
       return {
         ...prevState,
-        res3: s4.length,
+        res4: s4.length,
       };
     });
 
@@ -251,11 +243,10 @@ const ControlarBoleta = ({sorteo}: Props) => {
     s5.push(sorteo.resultados[0].numeros);
     s5.push(sorteo.resultados[1].numeros);
     s5.push(sorteo.resultados[2].numeros);
-    s5.push(sorteo.resultados[3].numeros);
     setAciertos(prevState => {
       return {
         ...prevState,
-        res4: s5.length,
+        res5: s5.length,
       };
     });
   };
@@ -268,7 +259,8 @@ const ControlarBoleta = ({sorteo}: Props) => {
   return (
     <View>
       <View style={{marginBottom:10}}>
-        <Text variant='titleLarge'>A continuación ingresá los datos de tu boleta para verificar con los datos del sorteo</Text>
+        <Text variant='titleLarge' style={{color:MD3Colors.neutral80}}>
+          A continuación ingresá los datos de tu boleta para verificar con los datos del sorteo</Text>
       </View>
       <View style={{flexDirection:'row', marginBottom:15, justifyContent:'space-between'}}>
         <View>
@@ -383,10 +375,11 @@ const ControlarBoleta = ({sorteo}: Props) => {
         <Button
           icon="delete-empty"
           style={{flex: 1, marginLeft: 6}}
+          labelStyle={{fontSize:16}}
           mode="contained"
           onPress={() => {
             setNumeros({n1: '', n2: '', n3: '', n4: '', n5: '', n6: ''});
-            setAciertos({res0: 0, res1: 0, res2: 0, res3: 0, res4: 0});
+            setAciertos({res1: 0, res2: 0, res3: 0, res4: 0, res5: 0});
             setHayError(false);
             setTodoOK(false);
             ref_input1.current.focus();
@@ -398,11 +391,11 @@ const ControlarBoleta = ({sorteo}: Props) => {
       </View>
       {todoOK ? (
         <>
-          {aciertos.res0 >= 4 ||
-          aciertos.res1 >= 4 ||
+          {aciertos.res1 >= 4 ||
           aciertos.res2 >= 4 ||
           aciertos.res3 >= 4 ||
-          aciertos.res4 === 6 ? (
+          aciertos.res4 === 6 ||
+          aciertos.res5 === 5 ? (
             <View>
               <Card mode='contained' style={{backgroundColor:'#2a9d8f'}}>
                 <Card.Content style={{alignItems:'center'}}>
@@ -411,36 +404,65 @@ const ControlarBoleta = ({sorteo}: Props) => {
                     style={{color: '#fff', marginBottom: 10}}>
                     ¡GANASTE!
                   </Text>
-                  {aciertos.res0 >= 4 ? (
-                    <View style={estilo.contenedorGanaste}>
-                      <View style={{flex:2, paddingLeft:5}}><Text variant="titleMedium">{sorteo.resultados[0].titulo}</Text></View>
-                      <View style={{flex:1, alignItems:'center', paddingRight:5}}><Text variant="titleLarge">{aciertos.res0} aciertos</Text></View>
-                    </View>
-                  ) : null}
                   {aciertos.res1 >= 4 ? (
-                    <View style={estilo.contenedorGanaste}>
-                      <View style={{flex:2, paddingLeft:5}}><Text variant="titleMedium">{sorteo.resultados[1].titulo}</Text></View>
-                      <View style={{flex:1, alignItems:'center', paddingRight:5}}><Text variant="titleLarge">{aciertos.res1} aciertos</Text></View>
-                    </View>
+                    <>
+                      <Ganaste
+                        numeroSorteo={1}
+                        datosSorteo={sorteo}
+                        aciertos={aciertos.res1}
+                      />
+                    </>
                   ) : null}
                   {aciertos.res2 >= 4 ? (
-                    <View style={estilo.contenedorGanaste}>
-                      <View style={{flex:2, paddingLeft:5}}><Text variant="titleMedium">{sorteo.resultados[2].titulo}</Text></View>
-                      <View style={{flex:1, alignItems:'center', paddingRight:5}}><Text variant="titleLarge">{aciertos.res2} aciertos</Text></View>
-                    </View>
+                    <>
+                      <Ganaste
+                        numeroSorteo={2}
+                        datosSorteo={sorteo}
+                        aciertos={aciertos.res2}
+                      />
+                    </>
                   ) : null}
                   {aciertos.res3 >= 4 ? (
+                    <>
+                      <Ganaste
+                        numeroSorteo={3}
+                        datosSorteo={sorteo}
+                        aciertos={aciertos.res3}
+                      />
+                    </>
+                  ) : null}
+                  {aciertos.res4 === 6 ? (
+                    <>
+                      <Ganaste
+                        numeroSorteo={4}
+                        datosSorteo={sorteo}
+                        aciertos={aciertos.res4}
+                      />
+                    </>
+                  ) : null}
+                  {aciertos.res5 === 5 ? (
+                    <>
+                      <Ganaste
+                        numeroSorteo={5}
+                        datosSorteo={sorteo}
+                        aciertos={aciertos.res5}
+                      />
+                    </>
+                  ) : null}
+                  {/*
+                  {aciertos.res4 >= 4 ? (
                     <View style={estilo.contenedorGanaste}>
                       <View style={{flex:2, paddingLeft:5}}><Text variant="titleMedium">{sorteo.resultados[3].titulo}</Text></View>
                       <View style={{flex:1, alignItems:'center', paddingRight:5}}><Text variant="titleLarge">{aciertos.res3} aciertos</Text></View>
                     </View>
                   ) : null}
-                  {aciertos.res4 === 6 ? (
+                  {aciertos.res5 === 6 ? (
                     <View style={estilo.contenedorGanaste}>
                       <View style={{flex:2, paddingLeft:5}}><Text variant="titleMedium">{sorteo.resultados[4].titulo}</Text></View>
                       <View style={{flex:1, alignItems:'center', paddingRight:5}}><Text variant="titleLarge">6 aciertos</Text></View>
                     </View>
                   ) : null}
+                  */}
                 </Card.Content>
               </Card>
             </View>
@@ -453,13 +475,4 @@ const ControlarBoleta = ({sorteo}: Props) => {
 
 export default ControlarBoleta;
 
-const estilo = StyleSheet.create({
-  contenedorGanaste: {
-    width: '100%',
-    backgroundColor: '#fff',
-    padding: 4,
-    flexDirection: 'row',
-    justifyContent:'center',
-    alignItems: 'center',
-  },
-});
+const estilo = StyleSheet.create({});

@@ -77,8 +77,8 @@ const PantallaDetalleSorteo = ({route}: {route: any}) => {
         <Card.Content>
           <View>
             <View style={estiloGlobal.mb10}>
-              <Text>
-                Controlar una o mas Boletas con los resultados que se 
+              <Text variant='bodyLarge'>
+                Controle una o mas boletas con los resultados que se 
                 muestran de este sorteo para verificar si posee algún premio
               </Text>
             </View>
@@ -89,6 +89,7 @@ const PantallaDetalleSorteo = ({route}: {route: any}) => {
                 compact={true}
                 theme={{roundness: 2}}
                 icon="alert-box"
+                labelStyle={{fontSize:16}}
                 mode="contained">
                 ¡Controlar Boletas!
               </Button>

@@ -19,7 +19,9 @@ const DetalleSorteo = ({sorteo}: Props) => {
         theme={{roundness: 4, colors: {background:'green'}}}
         style={estiloGlobal.mb10}>
         <Card.Content>
-          <Text variant="titleMedium" style={{fontWeight:'bold'}}>{sorteo.titulo}</Text>
+          <Text variant="titleMedium" style={{fontWeight: 'bold'}}>
+            {sorteo.titulo}
+          </Text>
         </Card.Content>
       </Card>
       <Card mode="elevated" theme={{roundness: 4}} style={estiloGlobal.mb10}>
@@ -87,8 +89,8 @@ const DetalleSorteo = ({sorteo}: Props) => {
                       <View>
                         {object.ganadores === 'Vacante' ? (
                           <View
-                            style={{backgroundColor: MD3Colors.error10, padding: 4}}>
-                            <Text variant="headlineMedium">
+                            style={{backgroundColor: MD3Colors.error40, padding: 4, alignItems:'center'}}>
+                            <Text variant="headlineMedium" style={{color:MD3Colors.primary90}}>
                               {object.ganadores}
                             </Text>
                           </View>
