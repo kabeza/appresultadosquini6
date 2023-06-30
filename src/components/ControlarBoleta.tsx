@@ -239,14 +239,25 @@ const ControlarBoleta = ({sorteo}: Props) => {
     });
 
     // Pozo Extra
-    let s5: string[] = [];
-    s5.push(sorteo.resultados[0].numeros);
-    s5.push(sorteo.resultados[1].numeros);
-    s5.push(sorteo.resultados[2].numeros);
+    let pozoExtra: string = '';
+    pozoExtra = pozoExtra.concat(
+      sorteo.resultados[0].numeros,
+      ',',
+      sorteo.resultados[1].numeros,
+      ',',
+      sorteo.resultados[2].numeros,
+    );
+    let s5match: number[] = tempSort.filter(element =>
+      pozoExtra.split(',').map(Number).includes(element),
+    );
+    console.log(`Sorteo 5 detallle: ${pozoExtra}`);
+    console.log(
+      `Matches: ${JSON.stringify(s5match)} == Length: ${s5match.length}`,
+    );
     setAciertos(prevState => {
       return {
         ...prevState,
-        res5: s5.length,
+        res5: s5match.length,
       };
     });
   };
@@ -394,8 +405,8 @@ const ControlarBoleta = ({sorteo}: Props) => {
           {aciertos.res1 >= 4 ||
           aciertos.res2 >= 4 ||
           aciertos.res3 >= 4 ||
-          aciertos.res4 === 6 ||
-          aciertos.res5 === 5 ? (
+          aciertos.res4 === 5 ||
+          aciertos.res5 === 6 ? (
             <View>
               <Card mode='contained' style={{backgroundColor:'#2a9d8f'}}>
                 <Card.Content style={{alignItems:'center'}}>
@@ -431,7 +442,7 @@ const ControlarBoleta = ({sorteo}: Props) => {
                       />
                     </>
                   ) : null}
-                  {aciertos.res4 === 6 ? (
+                  {aciertos.res4 === 5 ? (
                     <>
                       <Ganaste
                         numeroSorteo={4}
@@ -440,7 +451,7 @@ const ControlarBoleta = ({sorteo}: Props) => {
                       />
                     </>
                   ) : null}
-                  {aciertos.res5 === 5 ? (
+                  {aciertos.res5 === 6 ? (
                     <>
                       <Ganaste
                         numeroSorteo={5}

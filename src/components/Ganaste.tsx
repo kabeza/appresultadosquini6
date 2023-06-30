@@ -23,6 +23,7 @@ const Aciertos = ({numeroSorteo, aciertos, datosSorteo}: Props) => {
       premio = datosSorteo.resultados[numeroSorteo - 1].premios[0].premio;
       break;
     case 5:
+      premio = datosSorteo.resultados[numeroSorteo - 1].premios[0].premio;
       break;
     default:
       {datosSorteo.resultados[numeroSorteo - 1].premios.map((object, i) => {

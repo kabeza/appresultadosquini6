@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Card, Text, MD3Colors } from 'react-native-paper';
+import {Button, Card, Text, MD3Colors} from 'react-native-paper';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {TipoSorteo} from '../interfaces/RespuestaSorteos';
 import {estiloGlobal} from '../styles/EstiloGlobal';
@@ -20,7 +20,14 @@ const SorteoItemListado = ({sorteo, indice}: Props) => {
   return (
     <>
       <TouchableOpacity onPress={() => verDetalleSorteo(sorteo)}>
-        <Card mode={indice === 0 ? "outlined" : "elevated" } theme={{roundness: 4}} style={{borderColor: indice === 0 ? MD3Colors.tertiary60 : MD3Colors.primary40,...estiloGlobal.mb10}}>
+        <Card
+          mode={indice === 0 ? 'outlined' : 'elevated'}
+          theme={{roundness: 4}}
+          style={{
+            borderColor:
+              indice === 0 ? MD3Colors.tertiary60 : MD3Colors.primary40,
+            ...estiloGlobal.mb10,
+          }}>
           <Card.Content>
             <View style={estilo.itemSorteo}>
               <View style={estilo.isL}>
