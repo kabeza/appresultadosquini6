@@ -1,26 +1,24 @@
 import * as React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import {Avatar, Button, Card, Text} from 'react-native-paper';
-
-const LeftContent = props => <Avatar.Icon {...props} icon="slot-machine" />;
-
-const MiTarjeta = () => (
-  <Card mode="contained" theme={{roundness: 4}}>
-    <Card.Title title="Sorteo Número" subtitle="Fecha:" left={LeftContent} />
-    <Card.Content>
-      <Text variant="titleLarge">Card title</Text>
-      <Text variant="bodyMedium">Card content</Text>
-    </Card.Content>
-    <Card.Actions>
-      <Button mode="contained">Ver Resultados</Button>
-    </Card.Actions>
-  </Card>
-);
 
 const PantallaGenerarBoletas = () => {
   return (
     <View style={estilo.contenedor}>
-      <MiTarjeta />
+      <View style={{width:'100%', alignItems:'center', marginBottom:10}}>
+        <Image
+          source={require('../assets/images/numeros.png')}
+          style={{width: '100%', height: undefined, aspectRatio: 135/76,}}
+        />
+      </View>
+      <Card style={{width: '100%'}}>
+        <Card.Content style={{padding:10}}>
+          <Text variant="titleLarge">Generar Boletas de Quini 6</Text>
+          <Text variant="bodyMedium">
+            Seleccione el número de boletas a generar
+          </Text>
+        </Card.Content>
+      </Card>
     </View>
   );
 };
