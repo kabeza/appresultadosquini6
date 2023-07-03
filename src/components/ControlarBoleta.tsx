@@ -1,7 +1,15 @@
 import * as React from 'react';
 import {useEffect, useRef, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Button, Text, TextInput, MD3Colors, Card} from 'react-native-paper';
+import {
+  Button,
+  Text,
+  TextInput,
+  MD3Colors,
+  Card,
+  Chip,
+  Avatar,
+} from 'react-native-paper';
 import {
   DatosSorteo,
   TipoAciertos,
@@ -477,7 +485,19 @@ const ControlarBoleta = ({sorteo}: Props) => {
                 </Card.Content>
               </Card>
             </View>
-          ) : null}
+          ) : (
+            <>
+              <View>
+                <Card>
+                  <Card.Title
+                    title="No hubo suerte esta vez..."
+                    subtitle="¡La próxima tendrás mas suerte!"
+                    left={props => <Avatar.Icon {...props} icon="emoticon-sad" />}
+                  />
+                </Card>
+              </View>
+            </>
+          )}
         </>
       ) : null}
     </View>
