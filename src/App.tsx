@@ -13,7 +13,6 @@ import {
   MD3LightTheme,
   PaperProvider,
   MD3Colors,
-  Button,
 } from 'react-native-paper';
 import NavegadorTabs from './navigator/NavegadorTabs';
 import merge from 'deepmerge';
@@ -43,7 +42,7 @@ const themeDarkFinal = {
 };
 
 const App = () => {
-  const [conectado, setConectado] = useState<boolean | null>(false);
+  const [conectado, setConectado] = useState<boolean | null>(true);
   const colorScheme = useColorScheme();
 
   useEffect(() => {
@@ -82,7 +81,8 @@ const App = () => {
           </Card>
         </View>
       ) : (
-        <PaperProvider theme={colorScheme === 'light' ? themeLightFinal : themeDarkFinal}>
+        <PaperProvider
+          theme={colorScheme === 'light' ? themeLightFinal : themeDarkFinal}>
           <GestureHandlerRootView style={{flex: 1}}>
             <SafeAreaProvider>
               <NavigationContainer

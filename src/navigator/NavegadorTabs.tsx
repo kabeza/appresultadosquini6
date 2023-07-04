@@ -10,8 +10,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {useTheme} from 'react-native-paper';
 import {SorteosProvider} from '../context/ContextoSorteos';
 import PantallaGenerarBoletas from '../screens/PantallaGenerarBoletas';
-import NavegadorStackPrueba from './NavegadorStackPrueba';
 import PantallaInfo from '../screens/PantallaInfo';
+import { GenerarBoletasProvider } from '../context/ContextoGenerarBoletas';
 
 const Tab = createBottomTabNavigator();
 
@@ -28,6 +28,22 @@ const ComPantallaSorteosProvider = () => {
     <ComponenteProveedorSorteos>
       <NavegadorStack />
     </ComponenteProveedorSorteos>
+  );
+};
+
+const ComponenteProveedorBoletas = ({
+  children,
+}: {
+  children: JSX.Element | JSX.Element[];
+}) => {
+  return <GenerarBoletasProvider>{children}</GenerarBoletasProvider>;
+};
+
+const ComGenerarBoletasProvider = () => {
+  return (
+    <ComponenteProveedorBoletas>
+      <PantallaGenerarBoletas />
+    </ComponenteProveedorBoletas>
   );
 };
 
@@ -110,7 +126,8 @@ const NavegadorTabs = () => {
         </View>
       )}
       screenOptions={estiloTabBarFijo}
-      initialRouteName="PantallaInicio"
+      // initialRouteName="PantallaInicio"
+      initialRouteName="PantallaGenerarBoletas"
       detachInactiveScreens={false}>
       <Tab.Screen
         options={{
@@ -138,7 +155,7 @@ const NavegadorTabs = () => {
           ),
         }}
         name="PantallaGenerarBoletas"
-        component={PantallaGenerarBoletas}
+        component={ComGenerarBoletasProvider}
       />
       <Tab.Screen
         options={{
