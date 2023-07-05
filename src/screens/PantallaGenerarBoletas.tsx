@@ -35,7 +35,6 @@ const PantallaGenerarBoletas = () => {
     <View style={estilo.contenedor}>
       <FlatList
         data={boletas}
-        // renderItem={renderItem}
         renderItem={({item, index}) => renderItem(item, index)}
         ListHeaderComponent={
           <>
@@ -57,7 +56,6 @@ const PantallaGenerarBoletas = () => {
           </>
         }
         keyExtractor={(item, index) => index.toString()}
-        //onEndReached={() => generarBoletas()}
         onEndReachedThreshold={0.5}
         refreshControl={
           <RefreshControl
@@ -73,6 +71,7 @@ const PantallaGenerarBoletas = () => {
 const estilo = StyleSheet.create({
   contenedor: {
     padding: 10,
+    marginBottom: 50,
   },
 });
 

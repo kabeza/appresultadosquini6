@@ -1,9 +1,9 @@
 import React from 'react';
 import {ScrollView, View, StyleSheet} from 'react-native';
-import { Text, Card, Button, Portal, Modal, MD3Colors } from 'react-native-paper';
+import {Text, Card, Button, Portal, Modal, MD3Colors} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {estiloGlobal} from '../styles/EstiloGlobal';
-import {useContext, useEffect, useState} from 'react';
+import {useContext, useEffect} from 'react';
 import {ContextoSorteos} from '../context/ContextoSorteos';
 import Cargando from '../components/Cargando';
 import DetalleSorteo from '../components/DetalleSorteo';

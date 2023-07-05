@@ -26,13 +26,10 @@ export const SorteosProvider = ({children}: any) => {
     setIsLoading(true);
     await APISorteos.get<RespuestaDetalleSorteo>(`q6r/sorteo/${numeroSorteo}`)
       .then(function (response) {
-        console.log('Detalle de Sorteo');
-        console.log(response.data);
         setDetalleSorteo(response.data.data);
         setIsLoading(false);
       })
       .catch(function (error) {
-        console.log(error);
         setIsLoading(false);
         setDetalleSorteo(null);
       });
@@ -43,8 +40,6 @@ export const SorteosProvider = ({children}: any) => {
     setIsLoading(true);
     await APISorteos.get<RespuestaSorteos>('q6r/sorteos')
       .then(function (response) {
-        console.log('Llamado a la API');
-        console.log(response.data);
         setSorteos(response.data.data);
         setIsLoading(false);
       })

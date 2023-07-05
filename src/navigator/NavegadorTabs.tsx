@@ -11,7 +11,7 @@ import {useTheme} from 'react-native-paper';
 import {SorteosProvider} from '../context/ContextoSorteos';
 import PantallaGenerarBoletas from '../screens/PantallaGenerarBoletas';
 import PantallaInfo from '../screens/PantallaInfo';
-import { GenerarBoletasProvider } from '../context/ContextoGenerarBoletas';
+import {GenerarBoletasProvider} from '../context/ContextoGenerarBoletas';
 
 const Tab = createBottomTabNavigator();
 

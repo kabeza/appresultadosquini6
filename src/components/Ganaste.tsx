@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {DatosSorteo, TipoAciertos} from '../interfaces/RespuestaDetalleSorteo';
-import {Button, Card, Text} from 'react-native-paper';
+import {DatosSorteo} from '../interfaces/RespuestaDetalleSorteo';
+import {Card, Text} from 'react-native-paper';
 
 interface Props {
   numeroSorteo: number;
@@ -10,12 +10,6 @@ interface Props {
 }
 
 const Aciertos = ({numeroSorteo, aciertos, datosSorteo}: Props) => {
-  console.log(
-    `NroSorteo: ${numeroSorteo} Aciertos: ${aciertos} Sorteo: ${JSON.stringify(
-      datosSorteo.resultados[numeroSorteo - 1],
-    )}`,
-  );
-
   let premio = '';
 
   switch (numeroSorteo) {

@@ -34,9 +34,6 @@ const BoletaRandom = () => {
     arreTemp.push(numal.integer({min: 0, max: 45}));
     arreTemp.push(numal.integer({min: 0, max: 45}));
     let tempSort: number[] = arreTemp.sort((n1, n2) => n1 - n2);
-    console.log(
-      `Numeros: ${tempSort[0]} ${tempSort[1]} ${tempSort[2]} ${tempSort[3]} ${tempSort[4]} ${tempSort[5]}`,
-    );
     setNumerosAleatorios(prevState => {
       return {
         ...prevState,
@@ -48,17 +45,6 @@ const BoletaRandom = () => {
         n6: tempSort[5],
       };
     });
-    /*
-    setNumeros(prevState => {
-      return {
-        ...prevState,
-        n4:
-          parseInt(valor, 10) >= 0 && parseInt(valor, 10) <= 45
-            ? valor
-            : '',
-      };
-    });
-    */
   }, []);
 
   return (

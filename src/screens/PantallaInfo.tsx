@@ -4,12 +4,10 @@ import {Card, IconButton, MD3Colors, Text} from 'react-native-paper';
 
 const PantallaInfo = () => {
   const openTwitter = () => {
-    console.log('Abre twitter?');
     Linking.openURL('https://twitter.com/kabeza');
   };
 
   const openGithub = () => {
-    console.log('Abre Github?');
     Linking.openURL('https://github.com/kabeza');
   };
 

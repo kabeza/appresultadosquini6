@@ -2,7 +2,6 @@ import axios from 'axios';
 import {URL_API} from '@env';
 
 const baseURL = URL_API;
-console.log('BaseURL nueva: ' + baseURL);
 
 const APISorteos = axios.create({
   baseURL,

@@ -7,7 +7,6 @@ import {
   TextInput,
   MD3Colors,
   Card,
-  Chip,
   Avatar,
 } from 'react-native-paper';
 import {
@@ -50,10 +49,7 @@ const ControlarBoleta = ({sorteo}: Props) => {
     }
   }, [numeros]);
 
-  useEffect(() => {
-    console.log(`Aciertos nuevo: ${JSON.stringify(aciertos)}`);
-    // console.log(`Arre Aciertos: ${JSON.stringify(arreAciertos)}`);
-  }, [aciertos]);
+  useEffect(() => {}, [aciertos]);
 
   // Inputs Refs
   const ref_input1 = useRef();
@@ -95,11 +91,6 @@ const ControlarBoleta = ({sorteo}: Props) => {
         break;
       }
       toMap[temp[i]] = true;
-    }
-    if (resultado) {
-      console.log('Si hay duplicados');
-    } else {
-      console.log('No hay dupes');
     }
     return resultado;
   };
@@ -257,10 +248,6 @@ const ControlarBoleta = ({sorteo}: Props) => {
     );
     let s5match: number[] = tempSort.filter(element =>
       pozoExtra.split(',').map(Number).includes(element),
-    );
-    console.log(`Sorteo 5 detallle: ${pozoExtra}`);
-    console.log(
-      `Matches: ${JSON.stringify(s5match)} == Length: ${s5match.length}`,
     );
     setAciertos(prevState => {
       return {
@@ -468,20 +455,6 @@ const ControlarBoleta = ({sorteo}: Props) => {
                       />
                     </>
                   ) : null}
-                  {/*
-                  {aciertos.res4 >= 4 ? (
-                    <View style={estilo.contenedorGanaste}>
-                      <View style={{flex:2, paddingLeft:5}}><Text variant="titleMedium">{sorteo.resultados[3].titulo}</Text></View>
-                      <View style={{flex:1, alignItems:'center', paddingRight:5}}><Text variant="titleLarge">{aciertos.res3} aciertos</Text></View>
-                    </View>
-                  ) : null}
-                  {aciertos.res5 === 6 ? (
-                    <View style={estilo.contenedorGanaste}>
-                      <View style={{flex:2, paddingLeft:5}}><Text variant="titleMedium">{sorteo.resultados[4].titulo}</Text></View>
-                      <View style={{flex:1, alignItems:'center', paddingRight:5}}><Text variant="titleLarge">6 aciertos</Text></View>
-                    </View>
-                  ) : null}
-                  */}
                 </Card.Content>
               </Card>
             </View>

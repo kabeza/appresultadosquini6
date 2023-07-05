@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {useContext, useEffect, useState} from 'react';
+import {useContext, useEffect} from 'react';
 import {View, StyleSheet, FlatList, Keyboard} from 'react-native';
-import {Card, MD3Colors, Text} from 'react-native-paper';
+import {Card, Text} from 'react-native-paper';
 import {ContextoSorteos} from '../context/ContextoSorteos';
 import {estiloGlobal} from '../styles/EstiloGlobal';
 import Cargando from '../components/Cargando';

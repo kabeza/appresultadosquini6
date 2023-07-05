@@ -9,7 +9,6 @@ const NavegadorDrawer = () => {
   return (
     <Drawer.Navigator initialRouteName="Tabs">
       <Drawer.Screen name="Tabs" component={NavegadorTabs} />
-      {/* <Drawer.Screen name="Sorteos" component={PantallaSorteos} /> */}
     </Drawer.Navigator>
   );
 };
