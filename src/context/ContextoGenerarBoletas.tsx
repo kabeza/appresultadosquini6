@@ -4,7 +4,6 @@ import {TipoBoleta} from '../interfaces/RespuestaDetalleSorteo';
 
 type ContextoGenerarBoletasProps = {
   boletas: TipoBoleta[];
-  isLoading: boolean;
   generarBoletas: () => void;
 };
 
@@ -15,7 +14,6 @@ export const ContextoGenerarBoletas = createContext(
 export const GenerarBoletasProvider = ({children}: any) => {
   var Chance = require('chance');
   const [boletas, setBoletas] = useState<TipoBoleta[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   function generaBoletaQuini6(): TipoBoleta {
     var numal = new Chance();
@@ -40,28 +38,12 @@ export const GenerarBoletasProvider = ({children}: any) => {
   }
 
   const generarBoletas = () => {
-    setIsLoading(true);
-
     // Generate 4 sets of numbers
     const newBoletas: TipoBoleta[] = [];
     for (let i = 0; i < 4; i++) {
       newBoletas.push(generaBoletaQuini6());
     }
     setBoletas(newBoletas);
-    setIsLoading(false);
-    /*
-    setBoletas(prevState => {
-      return {
-        ...prevState,
-        n1: 10,
-        n2: 20,
-        n3: 30,
-        n4: 40,
-        n5: 50,
-        n6: 60,
-      };
-    });
-    */
   };
 
   return (
@@ -69,7 +51,6 @@ export const GenerarBoletasProvider = ({children}: any) => {
       value={{
         boletas,
         generarBoletas,
-        isLoading,
       }}>
       {children}
     </ContextoGenerarBoletas.Provider>

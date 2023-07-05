@@ -127,7 +127,7 @@ const NavegadorTabs = () => {
       )}
       screenOptions={estiloTabBarFijo}
       // initialRouteName="PantallaInicio"
-      initialRouteName="PantallaGenerarBoletas"
+      initialRouteName="PantallaInicio"
       detachInactiveScreens={false}>
       <Tab.Screen
         options={{
