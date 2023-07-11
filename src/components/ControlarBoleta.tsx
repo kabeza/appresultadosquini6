@@ -21,8 +21,18 @@ interface Props {
 }
 
 const ControlarBoleta = ({sorteo}: Props) => {
-  const [todoOK, setTodoOK] = useState(false);
-  const [hayError, setHayError] = useState(false);
+  const estadoInicial = {
+    puedeControlar: false,
+    hayError: false,
+    hayPremio: false,
+    malaSuerte: false,
+  };
+  const [estado, setEstado] = useState(estadoInicial);
+  // const [puedeControlar, setPuedeControlar] = useState(false);
+  // const [hayError, setHayError] = useState(false);
+  // const [hayPremio, setHayPremio] = useState(false);
+  // const [malaSuerte, setMalaSuerte] = useState(false);
+  // const malaSuerte1 = useRef(false);
   const [numeros, setNumeros] = useState<numerosIngresados>({
     n1: '',
     n2: '',
@@ -39,17 +49,112 @@ const ControlarBoleta = ({sorteo}: Props) => {
     res5: 0,
   });
 
+  const generarAciertos = () => {
+    if (numerosValidos() && !encontrarDuplicados()) {
+      // 1 ---- zerofill y ordenar
+      let temp = [
+        parseInt(numeros.n1.toString(), 10),
+        parseInt(numeros.n2.toString(), 10),
+        parseInt(numeros.n3.toString(), 10),
+        parseInt(numeros.n4.toString(), 10),
+        parseInt(numeros.n5.toString(), 10),
+        parseInt(numeros.n6.toString(), 10),
+      ];
+      let tempSort: number[] = temp.sort((n1, n2) => n1 - n2);
+
+      // Ahora controlo los aciertos por cada sorteo
+
+      // Sorteo Tradicional
+      let s1: number[] = tempSort.filter(element =>
+        sorteo.resultados[0].numeros.split(',').map(Number).includes(element),
+      );
+      setAciertos(prevState => {
+        return {
+          ...prevState,
+          res1: s1.length,
+        };
+      });
+
+      // La Segunda
+      let s2: number[] = tempSort.filter(element =>
+        sorteo.resultados[1].numeros.split(',').map(Number).includes(element),
+      );
+      setAciertos(prevState => {
+        return {
+          ...prevState,
+          res2: s2.length,
+        };
+      });
+
+      // Revancha
+      let s3: number[] = tempSort.filter(element =>
+        sorteo.resultados[2].numeros.split(',').map(Number).includes(element),
+      );
+      setAciertos(prevState => {
+        return {
+          ...prevState,
+          res3: s3.length,
+        };
+      });
+
+      // Siempre Sale
+      let s4: number[] = tempSort.filter(element =>
+        sorteo.resultados[3].numeros.split(',').map(Number).includes(element),
+      );
+      setAciertos(prevState => {
+        return {
+          ...prevState,
+          res4: s4.length,
+        };
+      });
+
+      // Pozo Extra
+      let pozoExtra: string = '';
+      pozoExtra = pozoExtra.concat(
+        sorteo.resultados[0].numeros,
+        ',',
+        sorteo.resultados[1].numeros,
+        ',',
+        sorteo.resultados[2].numeros,
+      );
+      let s5match: number[] = tempSort.filter(element =>
+        pozoExtra.split(',').map(Number).includes(element),
+      );
+      setAciertos(prevState => {
+        return {
+          ...prevState,
+          res5: s5match.length,
+        };
+      });
+
+      console.log(`Genero Aciertos =========>`);
+      console.log(`Aciertos: ${JSON.stringify(aciertos)}`);
+      console.log(`Estado: ${JSON.stringify(estado)}`);
+    }
+  };
+
   useEffect(() => {
+    console.log(`========= NROS USEEFF ==================`);
+    console.log(`Aciertos: ${JSON.stringify(aciertos)}`);
+    console.log(`Estado: ${JSON.stringify(estado)}`);
+    console.log(`Numeros: ${JSON.stringify(numeros)}`);
     if (numerosValidos()) {
-      setTodoOK(true);
-      setHayError(false);
+      generarAciertos();
+      setEstado(prev => {
+        return {
+          ...prev,
+          puedeControlar: true,
+        };
+      });
     } else {
-      setTodoOK(false);
-      setHayError(true);
+      setEstado(prev => {
+        return {
+          ...prev,
+          puedeControlar: false,
+        };
+      });
     }
   }, [numeros]);
-
-  useEffect(() => {}, [aciertos]);
 
   // Inputs Refs
   const ref_input1 = useRef();
@@ -169,98 +274,127 @@ const ControlarBoleta = ({sorteo}: Props) => {
   };
 
   const handleControlarBoleta = () => {
-    if (!numerosValidos()) {
-      setHayError(true);
+    console.log(`======================`);
+    if (!numerosValidos() || encontrarDuplicados()) {
+      setEstado(prev => {
+        return {
+          ...prev,
+          hayError: true,
+        };
+      });
+      // setHayError(true);
     }
-    if (encontrarDuplicados()) {
-      setTodoOK(false);
-      setHayError(true);
+
+    /*
+    // Ahora me fijo si hay premio
+    if (
+      aciertos.res1 >= 4 ||
+      aciertos.res2 >= 4 ||
+      aciertos.res3 >= 4 ||
+      aciertos.res4 === 5 ||
+      aciertos.res5 === 6
+    ) {
+      setHayPremio(true);
+      setMalaSuerte(false);
+      malaSuerte1.current = false;
     } else {
-      setTodoOK(true);
-      setHayError(false);
+      malaSuerte1.current = true;
+      setMalaSuerte(true);
+      setHayPremio(false);
     }
-
-    // 1 ---- zerofill y ordenar
-    let temp = [
-      parseInt(numeros.n1.toString(), 10),
-      parseInt(numeros.n2.toString(), 10),
-      parseInt(numeros.n3.toString(), 10),
-      parseInt(numeros.n4.toString(), 10),
-      parseInt(numeros.n5.toString(), 10),
-      parseInt(numeros.n6.toString(), 10),
-    ];
-    let tempSort: number[] = temp.sort((n1, n2) => n1 - n2);
-
-    // Ahora controlo los aciertos por cada sorteo
-
-    // Sorteo Tradicional
-    let s1: number[] = tempSort.filter(element =>
-      sorteo.resultados[0].numeros.split(',').map(Number).includes(element),
-    );
-    setAciertos(prevState => {
-      return {
-        ...prevState,
-        res1: s1.length,
-      };
-    });
-
-    // La Segunda
-    let s2: number[] = tempSort.filter(element =>
-      sorteo.resultados[1].numeros.split(',').map(Number).includes(element),
-    );
-    setAciertos(prevState => {
-      return {
-        ...prevState,
-        res2: s2.length,
-      };
-    });
-
-    // Revancha
-    let s3: number[] = tempSort.filter(element =>
-      sorteo.resultados[2].numeros.split(',').map(Number).includes(element),
-    );
-    setAciertos(prevState => {
-      return {
-        ...prevState,
-        res3: s3.length,
-      };
-    });
-
-    // Siempre Sale
-    let s4: number[] = tempSort.filter(element =>
-      sorteo.resultados[3].numeros.split(',').map(Number).includes(element),
-    );
-    setAciertos(prevState => {
-      return {
-        ...prevState,
-        res4: s4.length,
-      };
-    });
-
-    // Pozo Extra
-    let pozoExtra: string = '';
-    pozoExtra = pozoExtra.concat(
-      sorteo.resultados[0].numeros,
-      ',',
-      sorteo.resultados[1].numeros,
-      ',',
-      sorteo.resultados[2].numeros,
-    );
-    let s5match: number[] = tempSort.filter(element =>
-      pozoExtra.split(',').map(Number).includes(element),
-    );
-    setAciertos(prevState => {
-      return {
-        ...prevState,
-        res5: s5match.length,
-      };
-    });
+    */
+    console.log(`handleControlarBoleta ======>`);
+    console.log(`Aciertos: ${JSON.stringify(aciertos)}`);
+    console.log(`Estado: ${JSON.stringify(estado)}`);
+    if (
+      aciertos.res1 < 4 &&
+      aciertos.res2 < 4 &&
+      aciertos.res3 < 4 &&
+      aciertos.res4 < 5 &&
+      aciertos.res5 < 6
+    ) {
+      setEstado(prev => {
+        return {
+          ...prev,
+          malaSuerte: true,
+        };
+      });
+    } else if (
+      aciertos.res1 >= 4 ||
+      aciertos.res2 >= 4 ||
+      aciertos.res3 >= 4 ||
+      aciertos.res4 === 5 ||
+      aciertos.res5 === 6
+    ) {
+      setEstado(prev => {
+        return {
+          ...prev,
+          hayPremio: true,
+        };
+      });
+    }
   };
 
-  useEffect(() => {
-    setTodoOK(false);
-    setHayError(false);
-  }, []);
+  const handleLimpiar = () => {
+    setNumeros({n1: '', n2: '', n3: '', n4: '', n5: '', n6: ''});
+    setAciertos({res1: 0, res2: 0, res3: 0, res4: 0, res5: 0});
+    setEstado(prev => {
+      return {
+        ...prev,
+        hayError: false,
+        puedeControlar: false,
+        malaSuerte: false,
+        hayPremio: false,
+      };
+    });
+    console.log(`Estado: ${JSON.stringify(estado)}`);
+    ref_input1.current.focus();
+  };
+
+  const controlarAciertos = (aciertos: TipoAciertos, sorteo: DatosSorteo) => {
+    // {aciertos.res1 >= 4 || aciertos.res2 >= 4 || aciertos.res3 >= 4 || aciertos.res4 === 5 || aciertos.res5 === 6
+    if (aciertos.res1 >= 4) {
+      return (
+        <Ganaste
+          numeroSorteo={1}
+          datosSorteo={sorteo}
+          aciertos={aciertos.res1}
+        />
+      );
+    } else if (aciertos.res2 >= 4) {
+      return (
+        <Ganaste
+          numeroSorteo={2}
+          datosSorteo={sorteo}
+          aciertos={aciertos.res2}
+        />
+      );
+    } else if (aciertos.res3 >= 4) {
+      return (
+        <Ganaste
+          numeroSorteo={3}
+          datosSorteo={sorteo}
+          aciertos={aciertos.res3}
+        />
+      );
+    } else if (aciertos.res4 === 5) {
+      return (
+        <Ganaste
+          numeroSorteo={4}
+          datosSorteo={sorteo}
+          aciertos={aciertos.res4}
+        />
+      );
+    } else if (aciertos.res5 === 6) {
+      return (
+        <Ganaste
+          numeroSorteo={5}
+          datosSorteo={sorteo}
+          aciertos={aciertos.res5}
+        />
+      );
+    }
+  };
 
   return (
     <View>
@@ -355,7 +489,7 @@ const ControlarBoleta = ({sorteo}: Props) => {
           />
         </View>
       </View>
-      {hayError ? (
+      {estado.hayError ? (
         <View style={{marginBottom:15}}>
           <Text variant="titleSmall" style={{color: MD3Colors.error60}}>
             Por favor ingrese los seis números entre 0 y 45 inclusive y sin repetirse
@@ -369,7 +503,7 @@ const ControlarBoleta = ({sorteo}: Props) => {
           justifyContent: 'space-between',
         }}>
         <Button
-          disabled={!todoOK}
+          disabled={!estado.puedeControlar}
           labelStyle={{fontSize: 18, fontWeight: 'bold'}}
           icon="cash-check"
           style={{flex: 1, marginRight: 6}}
@@ -383,18 +517,43 @@ const ControlarBoleta = ({sorteo}: Props) => {
           style={{flex: 1, marginLeft: 6}}
           labelStyle={{fontSize:16}}
           mode="contained"
-          onPress={() => {
-            setNumeros({n1: '', n2: '', n3: '', n4: '', n5: '', n6: ''});
-            setAciertos({res1: 0, res2: 0, res3: 0, res4: 0, res5: 0});
-            setHayError(false);
-            setTodoOK(false);
-            ref_input1.current.focus();
-            // Keyboard.dismiss();
-          }}
+          onPress={() => handleLimpiar()}
           theme={{roundness: 2}}>
           Limpiar
         </Button>
       </View>
+
+      {estado.hayPremio ? (
+        <>
+          <View>
+            <Card mode='contained' style={{backgroundColor:'#2a9d8f'}}>
+              <Card.Content style={{alignItems:'center'}}>
+                <Text
+                  variant="headlineMedium"
+                  style={{color: '#fff', marginBottom: 10}}>
+                  ¡GANASTE!
+                </Text>
+                {controlarAciertos(aciertos, sorteo)}
+              </Card.Content>
+            </Card>
+          </View>
+        </>
+      ) : null}
+
+      {estado.malaSuerte ? (
+        <>
+          <View>
+            <Card>
+              <Card.Title
+                title="No hubo suerte esta vez..."
+                subtitle="¡La próxima tendrás mas suerte!"
+                left={props => <Avatar.Icon {...props} icon="emoticon-sad" />}
+              />
+            </Card>
+          </View>
+        </>
+      ) : null}
+      {/*
       {todoOK ? (
         <>
           {aciertos.res1 >= 4 ||
@@ -473,6 +632,7 @@ const ControlarBoleta = ({sorteo}: Props) => {
           )}
         </>
       ) : null}
+      */}
     </View>
   );
 };
