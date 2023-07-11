@@ -28,11 +28,6 @@ const ControlarBoleta = ({sorteo}: Props) => {
     malaSuerte: false,
   };
   const [estado, setEstado] = useState(estadoInicial);
-  // const [puedeControlar, setPuedeControlar] = useState(false);
-  // const [hayError, setHayError] = useState(false);
-  // const [hayPremio, setHayPremio] = useState(false);
-  // const [malaSuerte, setMalaSuerte] = useState(false);
-  // const malaSuerte1 = useRef(false);
   const [numeros, setNumeros] = useState<numerosIngresados>({
     n1: '',
     n2: '',
@@ -126,18 +121,54 @@ const ControlarBoleta = ({sorteo}: Props) => {
           res5: s5match.length,
         };
       });
+    }
+  };
 
-      console.log(`Genero Aciertos =========>`);
-      console.log(`Aciertos: ${JSON.stringify(aciertos)}`);
-      console.log(`Estado: ${JSON.stringify(estado)}`);
+  const hayAciertos = () => {
+    setEstado(prev => {
+      return {
+        ...prev,
+        malaSuerte: false,
+        hayPremio: false,
+      };
+    });
+
+    if (
+      aciertos.res1 < 4 &&
+      aciertos.res2 < 4 &&
+      aciertos.res3 < 4 &&
+      aciertos.res4 < 5 &&
+      aciertos.res5 < 6
+    ) {
+      setEstado(prev => {
+        return {
+          ...prev,
+          malaSuerte: true,
+        };
+      });
+    } else if (
+      aciertos.res1 >= 4 ||
+      aciertos.res2 >= 4 ||
+      aciertos.res3 >= 4 ||
+      aciertos.res4 === 5 ||
+      aciertos.res5 === 6
+    ) {
+      setEstado(prev => {
+        return {
+          ...prev,
+          hayPremio: true,
+        };
+      });
     }
   };
 
   useEffect(() => {
-    console.log(`========= NROS USEEFF ==================`);
-    console.log(`Aciertos: ${JSON.stringify(aciertos)}`);
-    console.log(`Estado: ${JSON.stringify(estado)}`);
-    console.log(`Numeros: ${JSON.stringify(numeros)}`);
+    setEstado(prev => {
+      return {
+        ...prev,
+        hayError: false,
+      };
+    });
     if (numerosValidos()) {
       generarAciertos();
       setEstado(prev => {
@@ -155,6 +186,10 @@ const ControlarBoleta = ({sorteo}: Props) => {
       });
     }
   }, [numeros]);
+
+  useEffect(() => {
+    hayAciertos();
+  }, [aciertos]);
 
   // Inputs Refs
   const ref_input1 = useRef();
@@ -274,7 +309,6 @@ const ControlarBoleta = ({sorteo}: Props) => {
   };
 
   const handleControlarBoleta = () => {
-    console.log(`======================`);
     if (!numerosValidos() || encontrarDuplicados()) {
       setEstado(prev => {
         return {
@@ -282,57 +316,8 @@ const ControlarBoleta = ({sorteo}: Props) => {
           hayError: true,
         };
       });
-      // setHayError(true);
     }
-
-    /*
-    // Ahora me fijo si hay premio
-    if (
-      aciertos.res1 >= 4 ||
-      aciertos.res2 >= 4 ||
-      aciertos.res3 >= 4 ||
-      aciertos.res4 === 5 ||
-      aciertos.res5 === 6
-    ) {
-      setHayPremio(true);
-      setMalaSuerte(false);
-      malaSuerte1.current = false;
-    } else {
-      malaSuerte1.current = true;
-      setMalaSuerte(true);
-      setHayPremio(false);
-    }
-    */
-    console.log(`handleControlarBoleta ======>`);
-    console.log(`Aciertos: ${JSON.stringify(aciertos)}`);
-    console.log(`Estado: ${JSON.stringify(estado)}`);
-    if (
-      aciertos.res1 < 4 &&
-      aciertos.res2 < 4 &&
-      aciertos.res3 < 4 &&
-      aciertos.res4 < 5 &&
-      aciertos.res5 < 6
-    ) {
-      setEstado(prev => {
-        return {
-          ...prev,
-          malaSuerte: true,
-        };
-      });
-    } else if (
-      aciertos.res1 >= 4 ||
-      aciertos.res2 >= 4 ||
-      aciertos.res3 >= 4 ||
-      aciertos.res4 === 5 ||
-      aciertos.res5 === 6
-    ) {
-      setEstado(prev => {
-        return {
-          ...prev,
-          hayPremio: true,
-        };
-      });
-    }
+    hayAciertos();
   };
 
   const handleLimpiar = () => {
@@ -352,7 +337,6 @@ const ControlarBoleta = ({sorteo}: Props) => {
   };
 
   const controlarAciertos = (aciertos: TipoAciertos, sorteo: DatosSorteo) => {
-    // {aciertos.res1 >= 4 || aciertos.res2 >= 4 || aciertos.res3 >= 4 || aciertos.res4 === 5 || aciertos.res5 === 6
     if (aciertos.res1 >= 4) {
       return (
         <Ganaste
@@ -553,86 +537,6 @@ const ControlarBoleta = ({sorteo}: Props) => {
           </View>
         </>
       ) : null}
-      {/*
-      {todoOK ? (
-        <>
-          {aciertos.res1 >= 4 ||
-          aciertos.res2 >= 4 ||
-          aciertos.res3 >= 4 ||
-          aciertos.res4 === 5 ||
-          aciertos.res5 === 6 ? (
-            <View>
-              <Card mode='contained' style={{backgroundColor:'#2a9d8f'}}>
-                <Card.Content style={{alignItems:'center'}}>
-                  <Text
-                    variant="headlineMedium"
-                    style={{color: '#fff', marginBottom: 10}}>
-                    ¡GANASTE!
-                  </Text>
-                  {aciertos.res1 >= 4 ? (
-                    <>
-                      <Ganaste
-                        numeroSorteo={1}
-                        datosSorteo={sorteo}
-                        aciertos={aciertos.res1}
-                      />
-                    </>
-                  ) : null}
-                  {aciertos.res2 >= 4 ? (
-                    <>
-                      <Ganaste
-                        numeroSorteo={2}
-                        datosSorteo={sorteo}
-                        aciertos={aciertos.res2}
-                      />
-                    </>
-                  ) : null}
-                  {aciertos.res3 >= 4 ? (
-                    <>
-                      <Ganaste
-                        numeroSorteo={3}
-                        datosSorteo={sorteo}
-                        aciertos={aciertos.res3}
-                      />
-                    </>
-                  ) : null}
-                  {aciertos.res4 === 5 ? (
-                    <>
-                      <Ganaste
-                        numeroSorteo={4}
-                        datosSorteo={sorteo}
-                        aciertos={aciertos.res4}
-                      />
-                    </>
-                  ) : null}
-                  {aciertos.res5 === 6 ? (
-                    <>
-                      <Ganaste
-                        numeroSorteo={5}
-                        datosSorteo={sorteo}
-                        aciertos={aciertos.res5}
-                      />
-                    </>
-                  ) : null}
-                </Card.Content>
-              </Card>
-            </View>
-          ) : (
-            <>
-              <View>
-                <Card>
-                  <Card.Title
-                    title="No hubo suerte esta vez..."
-                    subtitle="¡La próxima tendrás mas suerte!"
-                    left={props => <Avatar.Icon {...props} icon="emoticon-sad" />}
-                  />
-                </Card>
-              </View>
-            </>
-          )}
-        </>
-      ) : null}
-      */}
     </View>
   );
 };
