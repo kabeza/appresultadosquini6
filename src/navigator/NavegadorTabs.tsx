@@ -12,6 +12,7 @@ import {SorteosProvider} from '../context/ContextoSorteos';
 import PantallaGenerarBoletas from '../screens/PantallaGenerarBoletas';
 import PantallaInfo from '../screens/PantallaInfo';
 import {GenerarBoletasProvider} from '../context/ContextoGenerarBoletas';
+import PantallaEstadisticas from '../screens/PantallaEstadisticas';
 
 const Tab = createBottomTabNavigator();
 
@@ -44,6 +45,14 @@ const ComGenerarBoletasProvider = () => {
     <ComponenteProveedorBoletas>
       <PantallaGenerarBoletas />
     </ComponenteProveedorBoletas>
+  );
+};
+
+const ComEstadisticasProvider = () => {
+  return (
+    <ComponenteProveedorSorteos>
+      <PantallaEstadisticas />
+    </ComponenteProveedorSorteos>
   );
 };
 
@@ -156,6 +165,22 @@ const NavegadorTabs = () => {
         }}
         name="PantallaGenerarBoletas"
         component={ComGenerarBoletasProvider}
+      />
+      <Tab.Screen
+        options={{
+          tabBarShowLabel: false,
+          tabBarLabel: 'Stats',
+          // eslint-disable-next-line react/no-unstable-nested-components
+          tabBarIcon: ({color, size}) => (
+            <MaterialCommunityIcons
+              name="chart-scatter-plot"
+              color={color}
+              size={size}
+            />
+          ),
+        }}
+        name="PantallaEstadisticas"
+        component={ComEstadisticasProvider}
       />
       <Tab.Screen
         options={{
