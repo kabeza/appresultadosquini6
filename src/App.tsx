@@ -21,6 +21,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {useEffect, useState} from 'react';
 import NetInfo from '@react-native-community/netinfo';
+import Toast from 'react-native-toast-message';
 
 const {LightTheme, DarkTheme} = adaptNavigationTheme({
   reactNavigationLight: NavigationDefaultTheme,
@@ -95,6 +96,7 @@ const App = () => {
           </GestureHandlerRootView>
         </PaperProvider>
       )}
+      <Toast />
     </>
   );
 };

@@ -13,6 +13,7 @@ import BoletaQuini6 from '../components/BoletaQuini6';
 import {ContextoGenerarBoletas} from '../context/ContextoGenerarBoletas';
 import {TipoBoleta} from '../interfaces/RespuestaDetalleSorteo';
 import Clipboard from '@react-native-clipboard/clipboard';
+import Toast from 'react-native-toast-message';
 
 const PantallaGenerarBoletas = () => {
   const {boletas, generarBoletas} = useContext(ContextoGenerarBoletas);
@@ -23,8 +24,14 @@ const PantallaGenerarBoletas = () => {
     const boletasClipboard = boletas
       .map(boleta => Object.values(boleta).join(','))
       .join('\n');
-    console.log('BoletasClipboard: ' + boletasClipboard.toString());
     Clipboard.setString(boletasClipboard);
+    Toast.show({
+      type: 'info',
+      text1: '!Boletas Copiadas!',
+      text2: 'Se han copiado al portapapeles las boletas generadas',
+      position: 'bottom',
+      bottomOffset: 100,
+    });
   };
 
   useEffect(() => {
