@@ -21,6 +21,15 @@ const PantallaGenerarBoletas = () => {
 
   const generarBoletasyCopiar = () => {
     generarBoletas();
+  };
+
+  useEffect(() => {
+    setRefrescando(true);
+    generarBoletasyCopiar();
+    setRefrescando(false);
+  }, []);
+
+  useEffect(() => {
     const boletasClipboard = boletas
       .map(boleta => Object.values(boleta).join(','))
       .join('\n');
@@ -32,13 +41,7 @@ const PantallaGenerarBoletas = () => {
       position: 'bottom',
       bottomOffset: 100,
     });
-  };
-
-  useEffect(() => {
-    setRefrescando(true);
-    generarBoletasyCopiar();
-    setRefrescando(false);
-  }, []);
+  }, [boletas]);
 
   const onRefresh = () => {
     setRefrescando(true);

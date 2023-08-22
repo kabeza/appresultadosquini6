@@ -134,31 +134,40 @@ const ControlarBoleta = ({sorteo}: Props) => {
     });
 
     if (
-      aciertos.res1 < 4 &&
-      aciertos.res2 < 4 &&
-      aciertos.res3 < 4 &&
-      aciertos.res4 < 5 &&
-      aciertos.res5 < 6
+      numeros.n1.toString().length > 0 &&
+      numeros.n2.toString().length > 0 &&
+      numeros.n3.toString().length > 0 &&
+      numeros.n4.toString().length > 0 &&
+      numeros.n5.toString().length > 0 &&
+      numeros.n6.toString().length > 0
     ) {
-      setEstado(prev => {
-        return {
-          ...prev,
-          malaSuerte: true,
-        };
-      });
-    } else if (
-      aciertos.res1 >= 4 ||
-      aciertos.res2 >= 4 ||
-      aciertos.res3 >= 4 ||
-      aciertos.res4 === 5 ||
-      aciertos.res5 === 6
-    ) {
-      setEstado(prev => {
-        return {
-          ...prev,
-          hayPremio: true,
-        };
-      });
+      if (
+        aciertos.res1 < 4 &&
+        aciertos.res2 < 4 &&
+        aciertos.res3 < 4 &&
+        aciertos.res4 < 5 &&
+        aciertos.res5 < 6
+      ) {
+        setEstado(prev => {
+          return {
+            ...prev,
+            malaSuerte: true,
+          };
+        });
+      } else if (
+        aciertos.res1 >= 4 ||
+        aciertos.res2 >= 4 ||
+        aciertos.res3 >= 4 ||
+        aciertos.res4 === 5 ||
+        aciertos.res5 === 6
+      ) {
+        setEstado(prev => {
+          return {
+            ...prev,
+            hayPremio: true,
+          };
+        });
+      }
     }
   };
 
@@ -187,9 +196,22 @@ const ControlarBoleta = ({sorteo}: Props) => {
     }
   }, [numeros]);
 
+  /*
   useEffect(() => {
     hayAciertos();
   }, [aciertos]);
+  */
+
+  useEffect(() => {
+    setEstado(prevAppState => ({
+      ...prevAppState,
+      puedeControlar: false,
+      hayError: false,
+      hayPremio: false,
+      malaSuerte: false,
+    }));
+    // console.log(`Estado inicial: ${JSON.stringify(estado)}`);
+  }, []);
 
   // Inputs Refs
   const ref_input1 = useRef();
@@ -492,7 +514,7 @@ const ControlarBoleta = ({sorteo}: Props) => {
           icon="cash-check"
           style={{flex: 1, marginRight: 6}}
           mode="contained"
-          onPress={handleControlarBoleta}
+          onPress={() => handleControlarBoleta()}
           theme={{roundness: 2}}>
           Controlar
         </Button>
@@ -524,7 +546,7 @@ const ControlarBoleta = ({sorteo}: Props) => {
         </>
       ) : null}
 
-      {estado.malaSuerte ? (
+      {estado.malaSuerte === true ? (
         <>
           <View>
             <Card>
@@ -542,5 +564,3 @@ const ControlarBoleta = ({sorteo}: Props) => {
 };
 
 export default ControlarBoleta;
-
-const estilo = StyleSheet.create({});
