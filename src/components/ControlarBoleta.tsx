@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useEffect, useRef, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
 import {
   Button,
   Text,
@@ -194,13 +194,8 @@ const ControlarBoleta = ({sorteo}: Props) => {
         };
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [numeros]);
-
-  /*
-  useEffect(() => {
-    hayAciertos();
-  }, [aciertos]);
-  */
 
   useEffect(() => {
     setEstado(prevAppState => ({
@@ -354,7 +349,7 @@ const ControlarBoleta = ({sorteo}: Props) => {
         hayPremio: false,
       };
     });
-    console.log(`Estado: ${JSON.stringify(estado)}`);
+    // console.log(`Estado: ${JSON.stringify(estado)}`);
     ref_input1.current.focus();
   };
 
@@ -404,11 +399,18 @@ const ControlarBoleta = ({sorteo}: Props) => {
 
   return (
     <View>
-      <View style={{marginBottom:10}}>
-        <Text variant='titleLarge' style={{color:MD3Colors.neutral80}}>
-          A continuación ingresá los datos de tu boleta para verificar con los datos del sorteo</Text>
+      <View style={{marginBottom: 10}}>
+        <Text variant="bodyLarge" style={{color: MD3Colors.neutral80}}>
+          A continuación ingresá los datos de tu boleta para verificar con los
+          datos del sorteo
+        </Text>
       </View>
-      <View style={{flexDirection:'row', marginBottom:15, justifyContent:'space-between'}}>
+      <View
+        style={{
+          flexDirection: 'row',
+          marginBottom: 15,
+          justifyContent: 'space-between',
+        }}>
         <View>
           <TextInput
             ref={ref_input1}
@@ -496,9 +498,10 @@ const ControlarBoleta = ({sorteo}: Props) => {
         </View>
       </View>
       {estado.hayError ? (
-        <View style={{marginBottom:15}}>
+        <View style={{marginBottom: 15}}>
           <Text variant="titleSmall" style={{color: MD3Colors.error60}}>
-            Por favor ingrese los seis números entre 0 y 45 inclusive y sin repetirse
+            Por favor ingrese los seis números entre 0 y 45 inclusive y sin
+            repetirse
           </Text>
         </View>
       ) : null}
@@ -521,7 +524,7 @@ const ControlarBoleta = ({sorteo}: Props) => {
         <Button
           icon="delete-empty"
           style={{flex: 1, marginLeft: 6}}
-          labelStyle={{fontSize:16}}
+          labelStyle={{fontSize: 16}}
           mode="contained"
           onPress={() => handleLimpiar()}
           theme={{roundness: 2}}>
@@ -532,8 +535,8 @@ const ControlarBoleta = ({sorteo}: Props) => {
       {estado.hayPremio ? (
         <>
           <View>
-            <Card mode='contained' style={{backgroundColor:'#2a9d8f'}}>
-              <Card.Content style={{alignItems:'center'}}>
+            <Card mode="contained" style={{backgroundColor: '#2a9d8f'}}>
+              <Card.Content style={{alignItems: 'center'}}>
                 <Text
                   variant="headlineMedium"
                   style={{color: '#fff', marginBottom: 10}}>
@@ -555,6 +558,98 @@ const ControlarBoleta = ({sorteo}: Props) => {
                 subtitle="¡La próxima tendrás mas suerte!"
                 left={props => <Avatar.Icon {...props} icon="emoticon-sad" />}
               />
+              <Card.Content>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    marginBottom: 2,
+                    justifyContent: 'flex-start',
+                  }}>
+                  <View style={{width: 120}}>
+                    <Text>Tradicional</Text>
+                  </View>
+                  <View style={{width: 30}}>
+                    <Text variant="titleMedium" style={{fontWeight: 'bold'}}>
+                      {aciertos.res1}
+                    </Text>
+                  </View>
+                  <View>
+                    <Text>Premio con 4, 5 y 6 aciertos</Text>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    marginBottom: 2,
+                    justifyContent: 'flex-start',
+                  }}>
+                  <View style={{width: 120}}>
+                    <Text>La Segunda</Text>
+                  </View>
+                  <View style={{width: 30}}>
+                  <Text variant="titleMedium" style={{fontWeight: 'bold'}}>
+                      {aciertos.res2}
+                    </Text>
+                  </View>
+                  <View>
+                    <Text>Premio con 4, 5 y 6 aciertos</Text>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    marginBottom: 2,
+                    justifyContent: 'flex-start',
+                  }}>
+                  <View style={{width: 120}}>
+                    <Text>Revancha</Text>
+                  </View>
+                  <View style={{width: 30}}>
+                    <Text variant="titleMedium" style={{fontWeight: 'bold'}}>
+                      {aciertos.res3}
+                    </Text>
+                  </View>
+                  <View>
+                    <Text>Premio con 6 aciertos</Text>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    marginBottom: 2,
+                    justifyContent: 'flex-start',
+                  }}>
+                  <View style={{width: 120}}>
+                    <Text>Siempre Sale</Text>
+                  </View>
+                  <View style={{width: 30}}>
+                    <Text variant="titleMedium" style={{fontWeight: 'bold'}}>
+                      {aciertos.res4}
+                    </Text>
+                  </View>
+                  <View>
+                    <Text>Premio con 5 aciertos</Text>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    marginBottom: 2,
+                    justifyContent: 'flex-start',
+                  }}>
+                  <View style={{width: 120}}>
+                    <Text>Pozo Extra</Text>
+                  </View>
+                  <View style={{width: 30}}>
+                    <Text variant="titleMedium" style={{fontWeight: 'bold'}}>
+                      {aciertos.res5}
+                    </Text>
+                  </View>
+                  <View>
+                    <Text>Premio con 6 aciertos</Text>
+                  </View>
+                </View>
+              </Card.Content>
             </Card>
           </View>
         </>

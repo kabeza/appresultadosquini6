@@ -14,19 +14,26 @@ import {ContextoGenerarBoletas} from '../context/ContextoGenerarBoletas';
 import {TipoBoleta} from '../interfaces/RespuestaDetalleSorteo';
 import Clipboard from '@react-native-clipboard/clipboard';
 import Toast from 'react-native-toast-message';
+import {ContextoSorteos} from '../context/ContextoSorteos';
 
 const PantallaGenerarBoletas = () => {
-  const {boletas, generarBoletas} = useContext(ContextoGenerarBoletas);
+  const {boletas, generateNewSets} = useContext(ContextoGenerarBoletas);
+  const {todosLosNumeros, obtenerTodosLosNumeros} = useContext(ContextoSorteos);
   const [refrescando, setRefrescando] = useState(false);
 
   const generarBoletasyCopiar = () => {
-    generarBoletas();
+    // generarBoletas();
+    if (todosLosNumeros != null) {
+      generateNewSets(todosLosNumeros.todosLosNumerosEver);
+    }
   };
 
   useEffect(() => {
-    setRefrescando(true);
-    generarBoletasyCopiar();
-    setRefrescando(false);
+    // setRefrescando(true);
+    obtenerTodosLosNumeros();
+    // generarBoletasyCopiar();
+    // setRefrescando(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -70,12 +77,16 @@ const PantallaGenerarBoletas = () => {
               <Pressable onPress={() => generarBoletasyCopiar()}>
                 <Image
                   source={require('../assets/images/numeros.png')}
-                  style={{width: '100%', height: undefined, aspectRatio: 135/76,}}
+                  style={{
+                    width: '70%',
+                    height: undefined,
+                    aspectRatio: 135 / 76,
+                  }}
                 />
               </Pressable>
             </View>
-            <Card style={{width: '100%', marginBottom:10}}>
-              <Card.Content style={{padding:10}}>
+            <Card style={{width: '100%', marginBottom: 10}}>
+              <Card.Content style={{padding: 10}}>
                 <Text variant="titleLarge">Generar Boletas de Quini 6</Text>
                 <Text variant="bodyMedium">
                   Arrastre hacia abajo para actualizar y generar nuevamente

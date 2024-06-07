@@ -64,7 +64,7 @@ const App = () => {
             paddingTop: 50,
           }}>
           <Card style={{width: '80%'}}>
-            <Card.Content style={{padding:10}}>
+            <Card.Content style={{padding: 10}}>
               <Text variant="titleLarge">Sin Conexión</Text>
               <Text variant="bodyMedium">
                 Por favor conectese a Internet e intente nuevamente

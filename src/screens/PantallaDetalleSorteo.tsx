@@ -33,7 +33,6 @@ const PantallaDetalleSorteo = ({route}: {route: any}) => {
 
   return (
     <SafeAreaView style={estilo.contenedor}>
-
       <Portal>
         <Modal
           dismissable={false}
@@ -42,11 +41,16 @@ const PantallaDetalleSorteo = ({route}: {route: any}) => {
           onDismiss={hideModal}
           style={{margin:10}}
           theme={{roundness: 10}}
-          contentContainerStyle={{backgroundColor: MD3Colors.tertiary20, padding: 20, borderColor:MD3Colors.error80, borderWidth:1}}>
-          <View style={{padding:5}}>
+          contentContainerStyle={{
+            backgroundColor: MD3Colors.tertiary20,
+            padding: 20,
+            borderColor: MD3Colors.error80,
+            borderWidth: 1,
+          }}>
+          <View style={{padding: 5}}>
             <ControlarBoleta sorteo={detalleSorteo} />
           </View>
-          <View style={{alignContent:'center', padding:6}}>
+          <View style={{alignContent: 'center', padding: 6}}>
             <Button
               disabled={isLoading}
               onPress={() => hideModal()}
@@ -77,9 +81,9 @@ const PantallaDetalleSorteo = ({route}: {route: any}) => {
         <Card.Content>
           <View>
             <View style={estiloGlobal.mb10}>
-              <Text variant='bodyLarge'>
-                Controle una o mas boletas con los resultados que se 
-                muestran de este sorteo para verificar si posee algún premio
+              <Text variant="bodyLarge">
+                Controle una o mas boletas con los resultados que se muestran de
+                este sorteo para verificar si posee algún premio
               </Text>
             </View>
             <View>
@@ -89,7 +93,7 @@ const PantallaDetalleSorteo = ({route}: {route: any}) => {
                 compact={true}
                 theme={{roundness: 2}}
                 icon="alert-box"
-                labelStyle={{fontSize:16}}
+                labelStyle={{fontSize: 16}}
                 mode="contained">
                 ¡Controlar Boletas!
               </Button>
@@ -99,7 +103,7 @@ const PantallaDetalleSorteo = ({route}: {route: any}) => {
       </Card>
 
       {isLoading ? (
-        <View style={{minHeight:150}}>
+        <View style={{minHeight: 150}}>
           <Cargando />
         </View>
       ) : (

@@ -43,7 +43,9 @@ const ComponenteProveedorBoletas = ({
 const ComGenerarBoletasProvider = () => {
   return (
     <ComponenteProveedorBoletas>
-      <PantallaGenerarBoletas />
+      <ComponenteProveedorSorteos>
+        <PantallaGenerarBoletas />
+      </ComponenteProveedorSorteos>
     </ComponenteProveedorBoletas>
   );
 };
