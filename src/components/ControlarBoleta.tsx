@@ -413,6 +413,7 @@ const ControlarBoleta = ({sorteo}: Props) => {
         }}>
         <View>
           <TextInput
+            blurOnSubmit={false}
             ref={ref_input1}
             autoFocus={true}
             autoComplete="off"
@@ -429,6 +430,7 @@ const ControlarBoleta = ({sorteo}: Props) => {
         </View>
         <View>
           <TextInput
+            blurOnSubmit={false}
             ref={ref_input2}
             autoComplete="off"
             autoCorrect={false}
@@ -443,6 +445,7 @@ const ControlarBoleta = ({sorteo}: Props) => {
         </View>
         <View>
           <TextInput
+            blurOnSubmit={false}
             ref={ref_input3}
             autoComplete="off"
             autoCorrect={false}
@@ -457,6 +460,7 @@ const ControlarBoleta = ({sorteo}: Props) => {
         </View>
         <View>
           <TextInput
+            blurOnSubmit={false}
             ref={ref_input4}
             autoComplete="off"
             autoCorrect={false}
@@ -471,6 +475,7 @@ const ControlarBoleta = ({sorteo}: Props) => {
         </View>
         <View>
           <TextInput
+            blurOnSubmit={false}
             ref={ref_input5}
             autoComplete="off"
             autoCorrect={false}
@@ -485,6 +490,7 @@ const ControlarBoleta = ({sorteo}: Props) => {
         </View>
         <View>
           <TextInput
+            blurOnSubmit={false}
             ref={ref_input6}
             autoComplete="off"
             autoCorrect={false}
